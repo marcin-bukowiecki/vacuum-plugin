@@ -1,0 +1,7 @@
+func function() {
+    //do something
+}
+
+func Test_function(t *testing.T) {
+
+}

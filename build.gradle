@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.7.2'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+}
+
+group 'io.vacuum'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url "https://www.jetbrains.com/intellij-repository/releases" }
+    maven { url "https://cache-redirector.jetbrains.com/intellij-dependencies" }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/com.jetbrains.intellij.platform/test-framework-core
+    testCompile group: 'com.jetbrains.intellij.platform', name: 'test-framework-core', version: '202.1538'
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.19.0'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2021.1'
+    pluginName 'Vacuum'
+    type 'GO'
+    plugins 'org.jetbrains.plugins.go'
+}
+
+patchPluginXml {/*
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+      */
+}
+
+compileKotlin {
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
