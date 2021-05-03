@@ -19,7 +19,7 @@ import io.vacuum.utils.VacuumBundle
 /**
  * @author Marcin Bukowiecki
  */
-class IndentErrorFlow : VacuumBaseLocalInspection() {
+class VacuumIndentErrorFlow : VacuumBaseLocalInspection() {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
         return object : GoVisitor() {

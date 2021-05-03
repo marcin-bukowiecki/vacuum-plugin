@@ -20,7 +20,7 @@ import io.vacuum.utils.VacuumPsiUtils.toSmartPointer
 /**
  * @author Marcin Bukowiecki
  */
-class EmptyCodeBlockInspection : VacuumBaseLocalInspection() {
+class VacuumEmptyCodeBlockInspection : VacuumBaseLocalInspection() {
 
     override fun buildGoVisitor(
         holder: GoProblemsHolder,

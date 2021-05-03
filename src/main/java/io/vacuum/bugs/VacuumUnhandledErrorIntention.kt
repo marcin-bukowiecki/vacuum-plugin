@@ -19,7 +19,7 @@ import io.vacuum.utils.VacuumBundle
 /**
  * @author Marcin Bukowiecki
  */
-class UnhandledErrorIntention : VacuumBaseLocalInspection() {
+class VacuumUnhandledErrorIntention : VacuumBaseLocalInspection() {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
         return object : GoVisitor() {

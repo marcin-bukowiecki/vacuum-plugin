@@ -24,7 +24,7 @@ import io.vacuum.utils.VacuumPsiUtils
 /**
  * @author Marcin Bukowiecki
  */
-class LinesInspection : VacuumBaseLocalInspection(), Configurable {
+class VacuumLinesInspection : VacuumBaseLocalInspection(), Configurable {
 
     override fun isSuppressedFor(element: PsiElement): Boolean {
         return GoTestFinder.isTestFile(element.containingFile) || super.isSuppressedFor(element)

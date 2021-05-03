@@ -19,7 +19,7 @@ import io.vacuum.utils.VacuumUtils
 /**
  * @author Marcin Bukowiecki
  */
-class GoToUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.message("test.goTo")) {
+class VacuumGoToUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.message("test.goTo")) {
 
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean {
         if (file !is GoFile || editor == null) return false

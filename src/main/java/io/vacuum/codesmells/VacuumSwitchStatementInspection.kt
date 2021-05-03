@@ -30,7 +30,7 @@ import io.vacuum.utils.VacuumPsiUtils
  *
  * @author Marcin Bukowiecki
  */
-class SwitchStatementInspection : VacuumBaseLocalInspection(), Configurable {
+class VacuumSwitchStatementInspection : VacuumBaseLocalInspection(), Configurable {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
         return object : GoVisitor() {

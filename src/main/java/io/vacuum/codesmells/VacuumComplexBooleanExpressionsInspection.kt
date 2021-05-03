@@ -19,7 +19,7 @@ import io.vacuum.inspections.problems.VacuumInspectionMessage
 /**
  * @author Marcin Bukowiecki
  */
-class ComplexBooleanExpressionsInspection : VacuumBaseLocalInspection(), Configurable {
+class VacuumComplexBooleanExpressionsInspection : VacuumBaseLocalInspection(), Configurable {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
         return object : GoVisitor() {

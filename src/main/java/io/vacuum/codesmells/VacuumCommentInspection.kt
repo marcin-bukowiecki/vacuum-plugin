@@ -16,7 +16,7 @@ import com.intellij.psi.PsiWhiteSpace
 /**
  * @author Marcin Bukowiecki
  */
-class CommentInspection : LocalInspectionTool() {
+class VacuumCommentInspection : LocalInspectionTool() {
 
     override fun isSuppressedFor(element: PsiElement): Boolean {
         return element is PsiComment

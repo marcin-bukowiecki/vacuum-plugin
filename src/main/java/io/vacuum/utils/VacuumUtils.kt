@@ -15,11 +15,11 @@ import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.refactoring.suggested.startOffset
-import io.vacuum.codesmells.CognitiveComplexity
-import io.vacuum.codesmells.ComplexBooleanExpressionsInspection
-import io.vacuum.codesmells.SwitchStatementInspection
-import io.vacuum.configurable.LinesInspection
-import io.vacuum.configurable.ParametersInspection
+import io.vacuum.codesmells.VacuumCognitiveComplexity
+import io.vacuum.codesmells.VacuumComplexBooleanExpressionsInspection
+import io.vacuum.codesmells.VacuumSwitchStatementInspection
+import io.vacuum.configurable.VacuumLinesInspection
+import io.vacuum.configurable.VacuumParametersInspection
 import io.vacuum.inspections.VacuumBaseLocalInspection
 
 /**
@@ -86,11 +86,11 @@ object VacuumUtils {
 
     private fun getConfigurableIntentions(): List<VacuumBaseLocalInspection> {
         return listOf(
-            CognitiveComplexity(),
-            ComplexBooleanExpressionsInspection(),
-            SwitchStatementInspection(),
-            LinesInspection(),
-            ParametersInspection()
+            VacuumCognitiveComplexity(),
+            VacuumComplexBooleanExpressionsInspection(),
+            VacuumSwitchStatementInspection(),
+            VacuumLinesInspection(),
+            VacuumParametersInspection()
         )
     }
 }

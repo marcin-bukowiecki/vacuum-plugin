@@ -24,7 +24,7 @@ import io.vacuum.utils.VacuumPsiUtils.toSmartPointer
 /**
  * @author Marcin Bukowiecki
  */
-class UselessOperatorsPairsInspection : VacuumBaseLocalInspection() {
+class VacuumUselessOperatorsPairsInspection : VacuumBaseLocalInspection() {
 
     private val supportedOperators = setOf("!", "-", "+")
 

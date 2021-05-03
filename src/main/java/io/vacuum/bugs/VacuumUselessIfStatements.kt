@@ -30,7 +30,7 @@ import io.vacuum.utils.VacuumUtils.isBool
  *
  * @author Marcin Bukowiecki
  */
-class UselessIfStatements : VacuumBaseLocalInspection() {
+class VacuumUselessIfStatements : VacuumBaseLocalInspection() {
 
     private val exceptions = setOf("*", "+", "<<", "=")
 

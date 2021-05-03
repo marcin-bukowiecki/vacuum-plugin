@@ -17,7 +17,7 @@ import io.vacuum.utils.VacuumPsiUtils
 /**
  * Intention to create go unit test
  */
-class CreateGoUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.message("test.create")) {
+class VacuumCreateGoUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.message("test.create")) {
 
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean {
         if (file !is GoFile || editor == null) return false

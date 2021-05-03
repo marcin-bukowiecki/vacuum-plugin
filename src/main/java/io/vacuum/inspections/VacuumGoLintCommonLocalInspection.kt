@@ -17,7 +17,7 @@ import io.vacuum.lint.GoLintResult
  *
  * @author Marcin Bukowiecki
  */
-class GoLintCommonLocalInspection : VacuumBaseLocalInspection() {
+class VacuumGoLintCommonLocalInspection : VacuumBaseLocalInspection() {
 
     private var lintResult: GoLintResult? = null
 

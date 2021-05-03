@@ -28,7 +28,7 @@ import io.vacuum.utils.VacuumUtils.isTrue
  *
  * @author Marcin Bukowiecki
  */
-class RedundantBooleanLiteralInspection : VacuumBaseLocalInspection() {
+class VacuumRedundantBooleanLiteralInspection : VacuumBaseLocalInspection() {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
 

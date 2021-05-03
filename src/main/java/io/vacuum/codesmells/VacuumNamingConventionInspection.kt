@@ -19,7 +19,7 @@ import java.util.regex.Pattern
 /**
  * @author Marcin Bukowiecki
  */
-class NamingConventionInspection : VacuumBaseLocalInspection() {
+class VacuumNamingConventionInspection : VacuumBaseLocalInspection() {
 
     private val regex = Pattern.compile("([a-zA-Z0-9]+)+")
 

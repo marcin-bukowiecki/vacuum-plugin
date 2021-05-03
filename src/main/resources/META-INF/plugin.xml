@@ -17,6 +17,7 @@
         <li>unit test contributor</li>
         <li>quick fixes for some code bugs and code smells</li>
     </ul>
+    <br/>
 
     To see more features and information please visit: <a href="https://github.com/marcin-bukowiecki/vacuum-plugin">Vacuum</a>
 
@@ -36,109 +37,109 @@
 
         <applicationService serviceImplementation="io.vacuum.settings.VacuumSettingsState"/>
 
-        <localInspection implementationClass="io.vacuum.inspections.GoLintCommonLocalInspection"
+        <localInspection implementationClass="io.vacuum.inspections.VacuumGoLintCommonLocalInspection"
                          displayName="Golint inspection"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.bugs.UselessIfStatements"
+        <localInspection implementationClass="io.vacuum.bugs.VacuumUselessIfStatements"
                          displayName="Useless if blocks"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.CognitiveComplexity"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumCognitiveComplexity"
                          displayName="Cognitive complexity"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.EmptyCodeBlockInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumEmptyCodeBlockInspection"
                          displayName="Empty code block"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.SwitchStatementInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumSwitchStatementInspection"
                          displayName="Switch statement code smells"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.CommentInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumCommentInspection"
                          displayName="Empty multiline comment"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.MissingElseBlockInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumMissingElseBlockInspection"
                          displayName="Missing else statement after else if"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.NamingConventionInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumNamingConventionInspection"
                          displayName="Names should be camelCase or PascalCase"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.configurable.LinesInspection"
+        <localInspection implementationClass="io.vacuum.configurable.VacuumLinesInspection"
                          displayName="To many lines"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.SeparateStatementInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumSeparateStatementInspection"
                          displayName="Separate statements"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.configurable.ParametersInspection"
+        <localInspection implementationClass="io.vacuum.configurable.VacuumParametersInspection"
                          displayName="Number of parameters"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.InvertedBooleanExprInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumInvertedBooleanExprInspection"
                          displayName="Check for inverted boolean"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.IfStatementInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumIfStatementInspection"
                          displayName="Same condition and block"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.RedundantBooleanLiteralInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumRedundantBooleanLiteralInspection"
                          displayName="Redundant boolean literals"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.UselessOperatorsPairsInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumUselessOperatorsPairsInspection"
                          displayName="Useless operators pairs"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.codesmells.ComplexBooleanExpressionsInspection"
+        <localInspection implementationClass="io.vacuum.codesmells.VacuumComplexBooleanExpressionsInspection"
                          displayName="Complex boolean expressions"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.bugs.IndentErrorFlow"
+        <localInspection implementationClass="io.vacuum.bugs.VacuumIndentErrorFlow"
                          displayName="Indent error flow"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
 
-        <localInspection implementationClass="io.vacuum.bugs.UnhandledErrorIntention"
+        <localInspection implementationClass="io.vacuum.bugs.VacuumUnhandledErrorIntention"
                          displayName="Unhandled error"
                          enabledByDefault="true"
                          groupName="Vacuum"
@@ -147,11 +148,11 @@
         <postStartupActivity implementation="io.vacuum.listeners.VacuumStartupActivity"/>
 
         <intentionAction>
-            <className>io.vacuum.intentions.CreateGoUnitTestIntention</className>
+            <className>io.vacuum.intentions.VacuumCreateGoUnitTestIntention</className>
             <category>Go</category>
         </intentionAction>
         <intentionAction>
-            <className>io.vacuum.intentions.GoToUnitTestIntention</className>
+            <className>io.vacuum.intentions.VacuumGoToUnitTestIntention</className>
             <category>Go</category>
         </intentionAction>
     </extensions>

@@ -23,7 +23,7 @@ import com.intellij.psi.impl.source.DummyHolder
  *
  * @author Marcin Bukowiecki
  */
-class IfStatementInspection : LocalInspectionTool() {
+class VacuumIfStatementInspection : LocalInspectionTool() {
 
     override fun buildVisitor(
         holder: ProblemsHolder,

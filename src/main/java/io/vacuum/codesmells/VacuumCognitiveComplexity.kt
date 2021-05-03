@@ -23,7 +23,7 @@ import io.vacuum.utils.VacuumPsiUtils
 /**
  * @author Marcin Bukowiecki
  */
-class CognitiveComplexity : VacuumBaseLocalInspection(), Configurable {
+class VacuumCognitiveComplexity : VacuumBaseLocalInspection(), Configurable {
 
     override fun buildGoVisitor(
         holder: GoProblemsHolder,

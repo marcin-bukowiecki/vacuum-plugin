@@ -21,7 +21,7 @@ import io.vacuum.utils.VacuumPsiUtils
  *
  * @author Marcin Bukowiecki
  */
-class SeparateStatementInspection : VacuumBaseLocalInspection() {
+class VacuumSeparateStatementInspection : VacuumBaseLocalInspection() {
 
     override fun buildGoVisitor(holder: GoProblemsHolder,
                                 isOnTheFly: LocalInspectionToolSession): GoVisitor {

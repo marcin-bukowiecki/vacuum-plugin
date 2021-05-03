@@ -20,7 +20,7 @@ import io.vacuum.utils.VacuumPsiUtils
 /**
  * @author Marcin Bukowiecki
  */
-class InvertedBooleanExprInspection : LocalInspectionTool() {
+class VacuumInvertedBooleanExprInspection : LocalInspectionTool() {
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : GoVisitor() {

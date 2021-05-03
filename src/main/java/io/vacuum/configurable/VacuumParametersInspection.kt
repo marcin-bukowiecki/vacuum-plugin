@@ -15,7 +15,7 @@ import io.vacuum.inspections.problems.VacuumInspectionMessage
 /**
  * @author Marcin Bukowiecki
  */
-class ParametersInspection : VacuumBaseLocalInspection(), Configurable {
+class VacuumParametersInspection : VacuumBaseLocalInspection(), Configurable {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
         return object : GoVisitor() {
