@@ -13,6 +13,7 @@ import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiElement
 import io.vacuum.inspections.VacuumBaseLocalInspection
+import io.vacuum.keys.UserDataKeys
 import io.vacuum.quickfix.UselessIfBlockQuickFix
 import io.vacuum.utils.VacuumBundle
 import io.vacuum.utils.VacuumUtils.isBool
@@ -42,12 +43,16 @@ class VacuumUselessIfStatements : VacuumBaseLocalInspection() {
         return object : GoVisitor() {
 
             override fun visitIfStatement(goIfStatement: GoIfStatement) {
-                if (goIfStatement.elseStatement != null) {
+                if (goIfStatement.block != null && goIfStatement.elseStatement != null) {
+                    return
+                }
+                if (checkIfChildrenMarked(goIfStatement)) {
                     return
                 }
 
                 goIfStatement.condition?.let { condition ->
                     if (condition.isConstant && condition.text.isBool()) {
+                        goIfStatement.putUserData(UserDataKeys.USELESS_IF_KEY, true)
                         holder.registerProblem(
                             goIfStatement,
                             VacuumBundle.vacuumInspectionMessage("useless.ifStatement"),
@@ -71,5 +76,9 @@ class VacuumUselessIfStatements : VacuumBaseLocalInspection() {
                 }
             }
         }
+    }
+
+    private fun checkIfChildrenMarked(ifStatement: GoIfStatement): Boolean {
+        return ifStatement.block?.children?.any { ch -> ch.getUserData(UserDataKeys.USELESS_IF_KEY) == true } ?: false
     }
 }

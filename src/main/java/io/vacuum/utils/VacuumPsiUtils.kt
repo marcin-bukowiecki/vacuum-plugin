@@ -14,9 +14,6 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.*
-import com.intellij.psi.impl.source.DummyHolder
-import com.intellij.psi.impl.source.tree.CompositeElement
-import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
 import com.intellij.psi.util.nextLeafs
 
@@ -24,6 +21,10 @@ import com.intellij.psi.util.nextLeafs
  * @author Marcin Bukowiecki
  */
 object VacuumPsiUtils {
+
+    fun getLastStatement(block: GoBlock): GoStatement? {
+        return block.children.reversed().firstOrNull { ch -> ch is GoStatement } as? GoStatement
+    }
 
     /**
      * Create smart pointer for given [PsiElement]

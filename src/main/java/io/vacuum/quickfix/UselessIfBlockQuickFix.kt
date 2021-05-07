@@ -5,12 +5,15 @@
 
 package io.vacuum.quickfix
 
+import com.goide.psi.GoBlock
 import com.goide.psi.GoIfStatement
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiWhiteSpace
+import com.intellij.refactoring.suggested.endOffset
+import io.vacuum.utils.VacuumPsiUtils
 
 /**
  * @author Marcin Bukowiecki
@@ -39,7 +42,14 @@ class UselessIfBlockQuickFix : LocalQuickFix {
                     }
                 }
             }
+            val parent = ifStmt.parent
             ifStmt.delete()
+            if (parent is GoBlock) {
+                VacuumPsiUtils.getLastStatement(parent)?.let {
+                    lastStmt ->
+                    VacuumPsiUtils.getCaret(project)?.moveToOffset(lastStmt.endOffset)
+                }
+            }
         }
     }
 

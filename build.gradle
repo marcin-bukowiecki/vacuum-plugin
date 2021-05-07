@@ -31,13 +31,10 @@ intellij {
 }
 
 patchPluginXml {
-    changeNotes """
-      <br>
-      Fixed sync problem with golint"""
+    changeNotes(project.file('change-notes.html').text)
 }
 
 compileKotlin {
-
     kotlinOptions {
         jvmTarget = "1.8"
     }
