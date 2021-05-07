@@ -5,20 +5,18 @@
 
 package io.vacuum.lint
 
+import com.goide.sdk.GoSdkUtil
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import io.vacuum.notifications.VacuumNotifier
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
 
 /**
  * @author Marcin Bukowiecki
  */
 class GoLintProcess(private val files: List<PsiFile>, private val project: Project): LintProcess<GoLintResult> {
-
-    private val command = "golint"
 
     constructor(file: PsiFile): this(listOf(file), file.project)
 
@@ -30,7 +28,7 @@ class GoLintProcess(private val files: List<PsiFile>, private val project: Proje
         val messages = mutableListOf<GoLintMessage>()
 
         for (f in files) {
-            val process = Runtime.getRuntime().exec("$command ${f.virtualFile.path}")
+            val process = executeLint(f.project, f.virtualFile.path) ?: return GoLintResult(emptyList())
             val br = BufferedReader(InputStreamReader(process.inputStream))
 
             while (true) {
@@ -43,27 +41,46 @@ class GoLintProcess(private val files: List<PsiFile>, private val project: Proje
     }
 
     override fun command(): String {
-        return command
+        return "golint"
     }
 
     companion object {
 
         private val log = Logger.getInstance(GoLintProcess::javaClass.name)
 
+        fun executeLint(project: Project, filePath: String): Process? {
+            val process = tryExecute(pathPrefix = "", filePath)
+            if (process != null) return process
+            val goPathBins = GoSdkUtil.getGoPathRoots(project, null)
+            for (goPathBin in goPathBins) {
+                val p = tryExecute(goPathBin.path + "/bin/", filePath)
+                if (p != null) {
+                    return p
+                }
+            }
+            return null
+        }
+
         fun checkGoLint(project: Project, showNotification: Boolean = false): Boolean {
-            return try {
-                Runtime.getRuntime().exec("golint -foo")
-                true
-            } catch (e: IOException) {
+            if (executeLint(project, "-foo") == null) {
                 if (showNotification) {
-                    log.error("Exception while checking golint", e)
                     VacuumNotifier.notifyError(
                         project,
                         "golint is not installed",
-                        "Please run <code>go get -u golang.org/x/lint/golint</code> to install it"
+                        "Please check if golint is in GOPATH/bin directory or run <code>go get -u golang.org/x/lint/golint</code> to install it"
                     )
                 }
-                false
+                return false
+            }
+            return true
+        }
+
+        private fun tryExecute(pathPrefix: String, filePath: String): Process? {
+            return try {
+                Runtime.getRuntime().exec(pathPrefix + "golint $filePath")
+            } catch (e: Exception) {
+                log.debug("Exception while checking golint", e)
+                null
             }
         }
     }
