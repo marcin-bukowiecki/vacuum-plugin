@@ -6,8 +6,12 @@
 package io.vacuum.inspections
 
 import com.goide.inspections.core.GoProblemsHolder
+import com.goide.psi.GoFile
 import com.goide.psi.GoVisitor
 import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import io.vacuum.lint.GoLintProcess
 import io.vacuum.lint.GoLintResult
@@ -21,9 +25,17 @@ class VacuumGoLintCommonLocalInspection : VacuumBaseLocalInspection() {
 
     private var lintResult: GoLintResult? = null
 
-    override fun inspectionStarted(session: LocalInspectionToolSession, isOnTheFly: Boolean) {
-        lintResult = GoLintProcess(session.file).execute()
-        super.inspectionStarted(session, isOnTheFly)
+    override fun isEnabledOnFile(file: GoFile): Boolean {
+        val project = file.project
+        lintResult = GoLintProcess(file).execute()
+        val doc = PsiDocumentManager.getInstance(project).getDocument(file) ?: return false
+        if (FileDocumentManager.getInstance().isDocumentUnsaved(doc)) {
+            ApplicationManager.getApplication().invokeLater {
+                FileDocumentManager.getInstance().saveDocument(doc)
+            }
+            return false
+        }
+        return super.isEnabledOnFile(file)
     }
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {

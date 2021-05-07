@@ -32,4 +32,8 @@ class GoLintResult(private val messages: List<GoLintMessage>): LintResult<GoLint
         }
         return marked
     }
+
+    fun isEmpty(): Boolean {
+        return messages.isEmpty()
+    }
 }

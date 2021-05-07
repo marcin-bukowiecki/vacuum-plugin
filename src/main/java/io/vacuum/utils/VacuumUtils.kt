@@ -8,6 +8,10 @@ package io.vacuum.utils
 import com.goide.psi.GoFile
 import com.goide.psi.GoFunctionOrMethodDeclaration
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
+import com.intellij.codeInspection.InspectionEngine
+import com.intellij.codeInspection.LocalInspectionTool
+import com.intellij.codeInspection.ex.InspectionManagerEx
+import com.intellij.codeInspection.ex.LocalInspectionToolWrapper
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
@@ -26,6 +30,8 @@ import io.vacuum.inspections.VacuumBaseLocalInspection
  * @author Marcin Bukowiecki
  */
 object VacuumUtils {
+
+    const val goExtension = "go"
     
     fun asGoFile(project: Project, virtualFile: VirtualFile): GoFile? {
         return PsiManager.getInstance(project).findFile(virtualFile) as? GoFile
@@ -82,6 +88,15 @@ object VacuumUtils {
                 }
             }
         }
+    }
+
+    fun rerunIntention(file: GoFile, intention: LocalInspectionTool) {
+        val createNewGlobalContext = InspectionManagerEx.getInstance(file.project).createNewGlobalContext()
+        InspectionEngine.runInspectionOnFile(
+            file,
+            LocalInspectionToolWrapper(intention),
+            createNewGlobalContext
+        )
     }
 
     private fun getConfigurableIntentions(): List<VacuumBaseLocalInspection> {

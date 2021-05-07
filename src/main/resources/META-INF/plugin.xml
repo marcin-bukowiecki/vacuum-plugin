@@ -158,7 +158,7 @@
     </extensions>
 
     <projectListeners>
-        <listener class="io.vacuum.listeners.GoFileListener" topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+        <listener class="io.vacuum.listeners.GoSavedFileListener" topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
     </projectListeners>
 
     <actions>

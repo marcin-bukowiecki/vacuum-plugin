@@ -6,23 +6,20 @@
 package io.vacuum.listeners
 
 import com.goide.psi.GoFile
-import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.roots.ProjectRootManager
-import com.intellij.openapi.vfs.newvfs.events.VFileCreateEvent
 import com.intellij.openapi.vfs.newvfs.events.VFileEvent
-import com.intellij.openapi.vfs.newvfs.events.VFileMoveEvent
 import com.intellij.psi.PsiManager
+import io.vacuum.inspections.VacuumGoLintCommonLocalInspection
 import io.vacuum.utils.VacuumUtils
 
 /**
- * Listener to listen on create/move of go files
+ * Listener to listen on save of go file
  *
  * @author Marcin Bukowiecki
  */
-@Deprecated("Changed logic for saved files")
-class GoFileListener : VacuumBaseFileListener() {
+class GoSavedFileListener : VacuumBaseFileListener() {
 
     override fun after(events: MutableList<out VFileEvent>) {
         val filtered = filterEvents(events)
@@ -38,7 +35,7 @@ class GoFileListener : VacuumBaseFileListener() {
                         val file = evt.file
                         if (file != null && fileIndex.isInContent(file)) {
                             PsiManager.getInstance(project).findViewProvider(file)?.let { viewProvider ->
-                                DaemonCodeAnalyzer.getInstance(project).restart(GoFile(viewProvider))
+                                VacuumUtils.rerunIntention(GoFile(viewProvider), VacuumGoLintCommonLocalInspection())
                             }
                         }
                     }
@@ -49,7 +46,7 @@ class GoFileListener : VacuumBaseFileListener() {
 
     private fun filterEvents(events: MutableList<out VFileEvent>): List<VFileEvent> {
         return events.filter { evt -> evt.file != null &&
-                (evt is VFileMoveEvent || evt is VFileCreateEvent) &&
+                evt.isFromSave &&
                 evt.file?.extension == VacuumUtils.goExtension }
     }
 }

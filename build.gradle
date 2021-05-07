@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.vacuum'
-version '1.0.4'
+version '1.0.5'
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ intellij {
 patchPluginXml {
     changeNotes """
       <br>
-      Fix bug with golint on Mac"""
+      Fixed sync problem with golint"""
 }
 
 compileKotlin {
