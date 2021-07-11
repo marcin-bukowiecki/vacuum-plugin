@@ -22,7 +22,7 @@ class UnhandledErrorQuickfix(
     private val ptr: SmartPsiElementPointer<GoShortVarDeclaration>,
     private val errPtr: SmartPsiElementPointer<GoVarDefinition>
 ) :
-    VacuumBaseLocalQuickFix(VacuumBundle.message("err.handle")) {
+    VacuumBaseLocalQuickFix(VacuumBundle.message("vacuum.err.handle")) {
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val ifStmt = GoElementFactory.createIfStatement(project, "err != nil", "", null)

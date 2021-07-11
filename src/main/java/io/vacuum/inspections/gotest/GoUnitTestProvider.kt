@@ -33,7 +33,7 @@ class GoUnitTestProvider(
         sourceFileVF.parent.findChild(toCreate).let { testFile ->
             WriteCommandAction
                 .writeCommandAction(project)
-                .withName(VacuumBundle.message("test.create.command"))
+                .withName(VacuumBundle.message("vacuum.test.create.command"))
                 .compute(object : ThrowableComputable<Unit, IncorrectOperationException> {
 
                         override fun compute() {

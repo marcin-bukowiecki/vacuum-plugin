@@ -42,7 +42,7 @@ class VacuumSeparateStatementInspection : VacuumBaseLocalInspection() {
                                 log.debug("Statements on same line")
                                 holder.registerProblem(
                                     found,
-                                    VacuumBundle.vacuumInspectionMessage("statement.sameLine")
+                                    VacuumBundle.vacuumInspectionMessage("vacuum.statement.sameLine")
                                 )
                             }
                         }

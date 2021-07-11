@@ -53,7 +53,7 @@ class VacuumUselessOperatorsPairsInspection : VacuumBaseLocalInspection() {
 
                             holder.registerProblem(
                                 goAssignmentStatement,
-                                VacuumBundle.vacuumInspectionMessage("result.ignored"),
+                                VacuumBundle.vacuumInspectionMessage("vacuum.result.ignored"),
                                 ProblemHighlightType.WEAK_WARNING,
                                 *getReplacementQuickFix(goAssignmentStatement.leftHandExprList.expressionList[0],
                                     goAssignmentStatement,

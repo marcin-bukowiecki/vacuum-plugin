@@ -76,6 +76,21 @@ object VacuumUtils {
         return this == "false"
     }
 
+    fun String.isEqOrNotEq(): Boolean {
+        return when (this) {
+            "==" -> true
+            "!=" -> true
+            else -> false
+        }
+    }
+
+    fun String.isLesser(): Boolean {
+        return when (this) {
+            "<" -> true
+            else -> false
+        }
+    }
+
     fun rerunIntentions() {
         ProjectManager.getInstanceIfCreated()?.let { projectManager ->
             projectManager.openProjects.forEach { project ->

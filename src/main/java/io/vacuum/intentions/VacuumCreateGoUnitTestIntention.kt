@@ -17,7 +17,7 @@ import io.vacuum.utils.VacuumPsiUtils
 /**
  * Intention to create go unit test
  */
-class VacuumCreateGoUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.message("test.create")) {
+class VacuumCreateGoUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.message("vacuum.test.create")) {
 
     override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean {
         if (file !is GoFile || editor == null) return false
@@ -33,7 +33,7 @@ class VacuumCreateGoUnitTestIntention : VacuumIntentionBaseAction(VacuumBundle.m
             project,
             file,
             target.name ?: return,
-            VacuumBundle.message("test.create")
+            VacuumBundle.message("vacuum.test.create")
         )
         if (dialog.showAndGet()) return
     }

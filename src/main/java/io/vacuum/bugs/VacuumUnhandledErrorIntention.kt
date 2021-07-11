@@ -43,7 +43,7 @@ class VacuumUnhandledErrorIntention : VacuumBaseLocalInspection() {
                         if (errExpr.text == "_") {
                             holder.registerProblem(
                                 errExpr,
-                                VacuumBundle.vacuumInspectionMessage("err.unhandled"),
+                                VacuumBundle.vacuumInspectionMessage("vacuum.err.unhandled"),
                                 UnhandledErrorQuickfix(
                                     SmartPointerManager.createPointer(declaration),
                                     SmartPointerManager.createPointer(errExpr)

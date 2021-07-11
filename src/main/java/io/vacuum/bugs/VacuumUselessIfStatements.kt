@@ -50,7 +50,7 @@ class VacuumUselessIfStatements : VacuumBaseLocalInspection() {
                     if (condition.isConstant && condition.text.isBool()) {
                         holder.registerProblem(
                             goIfStatement,
-                            VacuumBundle.vacuumInspectionMessage("useless.ifStatement"),
+                            VacuumBundle.vacuumInspectionMessage("vacuum.ifStatement.useless"),
                             ProblemHighlightType.WARNING,
                             UselessIfBlockQuickFix()
                         )
@@ -65,7 +65,7 @@ class VacuumUselessIfStatements : VacuumBaseLocalInspection() {
                 if (left.text == right.text && (o.operator as PsiElement).text !in exceptions) {
                     holder.registerProblem(
                         o,
-                        VacuumBundle.vacuumInspectionMessage("binary.sameExpression"),
+                        VacuumBundle.vacuumInspectionMessage("vacuum.binary.sameExpression"),
                         ProblemHighlightType.WARNING
                     )
                 }
