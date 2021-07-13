@@ -8,6 +8,8 @@ package io.vacuum.inspections.conditions
 import com.goide.inspections.core.GoProblemsHolder
 import com.goide.psi.GoBinaryExpr
 import com.goide.psi.GoVisitor
+import com.goide.psi.impl.GoExpressionUtil
+import com.goide.psi.impl.GoTypeUtil
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.psi.SmartPointerManager
 import io.vacuum.inspections.VacuumBaseLocalInspection
@@ -26,6 +28,8 @@ class VacuumYodaConditionInspection : VacuumBaseLocalInspection() {
             override fun visitBinaryExpr(binaryExpr: GoBinaryExpr) {
                 val operator = binaryExpr.operator ?: return
                 val right = binaryExpr.right ?: return
+                if (GoExpressionUtil.isNil(right)) return
+
                 if (binaryExpr.left.isConstant && !right.isConstant && operator.text.isEqOrNotEq()) {
                     holder.registerProblem(binaryExpr,
                         VacuumBundle.vacuumInspectionMessage("vacuum.quickfix.yoda"),
