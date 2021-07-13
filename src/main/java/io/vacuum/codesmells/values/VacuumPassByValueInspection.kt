@@ -20,6 +20,7 @@ import java.util.*
 /**
  * @author Marcin Bukowiecki
  */
+@Deprecated("Release in future")
 class VacuumPassByValueInspection : VacuumBaseLocalInspection() {
 
     override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
