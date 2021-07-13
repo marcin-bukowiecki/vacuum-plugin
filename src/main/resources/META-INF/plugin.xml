@@ -170,6 +170,12 @@
                          groupName="Vacuum"
                          language="go"/>
 
+        <localInspection implementationClass="io.vacuum.inspections.bytes.VacuumUseEqualForBytes"
+                         displayName="Bytes should be compared with Equal() instead of Compare()"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
         <postStartupActivity implementation="io.vacuum.listeners.VacuumStartupActivity"/>
 
         <intentionAction>
