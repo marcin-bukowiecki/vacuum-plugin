@@ -23,7 +23,7 @@ class IfNotEqualQuickFix(
     private val rightPtr: SmartPsiElementPointer<GoUnaryExpr>,
     private val assignmentStatement: SmartPsiElementPointer<GoAssignmentStatement>
 ) : VacuumBaseLocalQuickFix(VacuumBundle.message(
-    "quickfix.replace.itNotEqual",
+    "vacuum.quickfix.replace.itNotEqual",
     leftPtr.element?.text ?: "",
     rightPtr.element?.text ?: "",
 )) {

@@ -55,7 +55,7 @@ class VacuumNamingConventionInspection : VacuumBaseLocalInspection() {
         if (!regex.matcher(name).matches()) {
             holder.registerProblem(
                 element,
-                VacuumBundle.vacuumInspectionMessage("name.convention")
+                VacuumBundle.vacuumInspectionMessage("vacuum.name.convention")
             )
         }
     }

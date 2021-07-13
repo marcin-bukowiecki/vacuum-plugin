@@ -23,7 +23,7 @@ class NegExprQuickFix(
     private val rightPtr: SmartPsiElementPointer<PsiElement>,
     private val assignmentStatement: SmartPsiElementPointer<GoAssignmentStatement>
 ) : VacuumBaseLocalQuickFix(VacuumBundle.message(
-    "quickfix.replace.negExpr",
+    "vacuum.quickfix.replace.negExpr",
     leftPtr.element?.text ?: "",
     rightPtr.element?.text ?: "",
 )) {

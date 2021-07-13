@@ -58,7 +58,7 @@ class GoCreateTestDialog(private val project: Project,
         constr.gridy = gridy++
         constr.gridx = 0
         constr.weightx = 0.0
-        val libLabel = JLabel(VacuumBundle.message("test.name"))
+        val libLabel = JLabel(VacuumBundle.message("vacuum.test.name"))
         libLabel.labelFor = myTargetTestName
         panel.add(libLabel, constr)
 
@@ -70,7 +70,7 @@ class GoCreateTestDialog(private val project: Project,
         myUnitTestExistsPanel = JPanel(BorderLayout())
         myUnitTestExistsLabel = JLabel()
         myUnitTestExistsLabel.icon = AllIcons.Actions.IntentionBulb
-        myUnitTestExistsLabel.text = VacuumBundle.message("test.error.exists")
+        myUnitTestExistsLabel.text = VacuumBundle.message("vacuum.test.error.exists")
         myUnitTestExistsPanel.add(myUnitTestExistsLabel, BorderLayout.CENTER)
         validateText()
 

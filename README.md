@@ -11,6 +11,7 @@ Vacuum is a GoLand plugin which provides code inspections, code metrics and quic
 
 #### Syntax inspections:
  - [golang/lint](https://github.com/golang/lint) integration.
+ - over 20 code inspections and quick fiexes  
  - unhandled error  
  - empty comment inspection
  - empty code blocks

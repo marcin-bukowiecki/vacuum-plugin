@@ -9,6 +9,7 @@
     Main features:
     <ul>
         <li>Integration with golang/lint</li>
+        <li>Over 20 code inspections and quick fixes</li>
         <li>Code metrics: cognitive complexity, number of lines, control flow depth etc.</li>
         <li>Naming convention</li>
         <li>boolean expression complexity</li>
@@ -141,6 +142,30 @@
 
         <localInspection implementationClass="io.vacuum.bugs.VacuumUnhandledErrorIntention"
                          displayName="Unhandled error"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.math.VacuumMathPowInspection"
+                         displayName="Method call math.Pow(x, 2) can be replaced with x * x"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.conditions.VacuumYodaConditionInspection"
+                         displayName="Yoda conditions should not be used"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.slices.VacuumUselessSliceLengthCheckInspection"
+                         displayName="Calls like len() or cap() will never be negative"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.time.VacuumUseEqualForTime"
+                         displayName="Time should be compared with Equal() method instead of == operator"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>

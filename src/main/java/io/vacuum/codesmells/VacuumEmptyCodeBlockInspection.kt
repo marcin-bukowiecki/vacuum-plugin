@@ -64,7 +64,7 @@ class VacuumEmptyCodeBlockInspection : VacuumBaseLocalInspection() {
                     }
 
                     holder.registerProblem(elementToMark,
-                        VacuumInspectionMessage(VacuumBundle.message("function.emptyBlock")),
+                        VacuumInspectionMessage(VacuumBundle.message("vacuum.function.emptyBlock")),
                         EmptyCodeBlockQuickFix(SmartPointerManager.createPointer(fd.blockIfExists ?: return))
                     )
                 }

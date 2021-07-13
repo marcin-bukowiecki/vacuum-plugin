@@ -27,7 +27,7 @@ class UselessOperatorQuickFix(
 ) : LocalQuickFix {
 
     override fun getFamilyName(): String {
-        return VacuumBundle.message("replace.with", replacement)
+        return VacuumBundle.message("vacuum.replace.with", replacement)
     }
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

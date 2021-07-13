@@ -54,7 +54,7 @@ class VacuumIndentErrorFlow : VacuumBaseLocalInspection() {
 
     private fun registerProblem(holder: GoProblemsHolder, ifStatement: GoIfStatement) {
         ifStatement.`if`.let {
-            holder.registerProblem(it, VacuumInspectionMessage(VacuumBundle.message("flow.indentErrorFlow")))
+            holder.registerProblem(it, VacuumInspectionMessage(VacuumBundle.message("vacuum.flow.indentErrorFlow")))
         }
     }
 }
