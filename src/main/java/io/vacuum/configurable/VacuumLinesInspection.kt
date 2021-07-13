@@ -34,7 +34,7 @@ class VacuumLinesInspection : VacuumBaseLocalInspection(), Configurable {
         return object : GoVisitor() {
 
             override fun visitGoFile(file: GoFile) {
-                val firstChild = file.firstChild
+                val firstChild = file.firstChild ?: return
                 val lastChild = file.lastChild ?: return
                 val document = VacuumPsiUtils.getDocument(file)
                 val lines =

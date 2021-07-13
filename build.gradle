@@ -31,11 +31,7 @@ intellij {
 }
 
 patchPluginXml {
-    changeNotes """
-      <br>
-      Fixed sync problem with golint
-      <br>
-      Added new inspections"""
+    changeNotes(project.file('change-notes.html').text)
 }
 
 compileKotlin {
