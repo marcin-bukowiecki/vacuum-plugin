@@ -9,7 +9,6 @@ import com.goide.inspections.core.GoProblemsHolder
 import com.goide.psi.GoBinaryExpr
 import com.goide.psi.GoVisitor
 import com.goide.psi.impl.GoExpressionUtil
-import com.goide.psi.impl.GoTypeUtil
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.psi.SmartPointerManager
 import io.vacuum.inspections.VacuumBaseLocalInspection

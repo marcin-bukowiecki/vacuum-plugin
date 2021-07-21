@@ -176,6 +176,12 @@
                          groupName="Vacuum"
                          language="go"/>
 
+        <localInspection implementationClass="io.vacuum.inspections.aws.VacuumAPIGatewayResponseInspection"
+                         displayName="Providing StatusCode is a good practice and will help debug API"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
         <postStartupActivity implementation="io.vacuum.listeners.VacuumStartupActivity"/>
 
         <intentionAction>
