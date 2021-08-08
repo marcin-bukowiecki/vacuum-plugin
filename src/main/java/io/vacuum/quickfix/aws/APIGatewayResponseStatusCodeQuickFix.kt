@@ -31,7 +31,6 @@ class APIGatewayResponseStatusCodeQuickFix(private val ref: SmartPsiElementPoint
             val valueElement = GoElementFactory.createLiteralValueElement(ref.project, "StatusCode", "") as? GoElement
                 ?: return
 
-
             val added = literalValue.addBefore(valueElement, literalValue.lastChild)
             val endOffset = added.endOffset
             FileEditorManager.getInstance(project).selectedEditor?.let {
