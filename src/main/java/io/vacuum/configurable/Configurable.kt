@@ -13,39 +13,39 @@ import io.vacuum.settings.VacuumSettingsState
 interface Configurable {
 
     fun getMaxSourceLines(): Int {
-        return VacuumSettingsState.getInstance()?.sourceFileLines ?: return -1
+        return VacuumSettingsState.getInstance().sourceFileLines
     }
 
     fun getMaxFunctionLines(): Int {
-        return VacuumSettingsState.getInstance()?.functionLines ?: return -1
+        return VacuumSettingsState.getInstance().functionLines
     }
 
     fun getMaxMethodLines(): Int {
-        return VacuumSettingsState.getInstance()?.methodLines ?: return -1
+        return VacuumSettingsState.getInstance().methodLines
     }
 
     fun getMaxSwitchCaseLines(): Int {
-        return VacuumSettingsState.getInstance()?.switchCaseLines ?: return -1
+        return VacuumSettingsState.getInstance().switchCaseLines
     }
 
     fun getMaxNumberOfParameters(): Int {
-        return VacuumSettingsState.getInstance()?.functionParameters ?: return -1
+        return VacuumSettingsState.getInstance().functionParameters
     }
 
     fun getMaxNumberOfCases(): Int {
-        return VacuumSettingsState.getInstance()?.casesNumber ?: return -1
+        return VacuumSettingsState.getInstance().casesNumber
     }
 
     fun getCognitiveComplexityLimit(): Int {
-        return VacuumSettingsState.getInstance()?.cognitiveComplexity ?: return -1
+        return VacuumSettingsState.getInstance().cognitiveComplexity
     }
 
     fun getMaxNumberOfBooleanExpressions(): Int {
-        return VacuumSettingsState.getInstance()?.booleanExpressions ?: return -1
+        return VacuumSettingsState.getInstance().booleanExpressions
     }
 
     fun getMaxControlFlowDepth(): Int {
-        return VacuumSettingsState.getInstance()?.controlFlowDepth ?: return -1
+        return VacuumSettingsState.getInstance().controlFlowDepth
     }
 
     fun Int.isValid(): Boolean {

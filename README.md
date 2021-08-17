@@ -10,8 +10,7 @@ Vacuum is a GoLand plugin which provides code inspections, code metrics and quic
 ## Features
 
 #### Syntax inspections:
- - [golang/lint](https://github.com/golang/lint) integration.
- - over 20 code inspections and quick fiexes  
+ - over 30 code inspections and quick fixes  
  - unhandled error  
  - empty comment inspection
  - empty code blocks
@@ -22,6 +21,7 @@ Vacuum is a GoLand plugin which provides code inspections, code metrics and quic
  - separate statements
  - naming convention
  - missing else block
+- [golang/lint](https://github.com/golang/lint) integration.
 
 #### Code metrics inspections:
  - [Cognitive Complexity](https://www.sonarsource.com/docs/CognitiveComplexity.pdf)
@@ -46,7 +46,10 @@ You can install this plugin from JetBrains plugin repository.
 
 ## Configuration
 
-To use Inspections with `golang/lint` run following command: `go get -u golang.org/x/lint/golint`
+To use Inspections with `golang/lint` run following command: `go get -u golang.org/x/lint/golint`.
+
+Since `golang/lint` is deprecated by default it is disabled. To enable it go to: 
+`File` -> `Settings` -> `Tools` -> `Vacuum Settings` and check `Enable golint`.
 
 To disable particular Inspections go to: `File` -> `Settings` -> `Editor` -> `Inspections`, and under `Vacuum` 
 group uncheck undesired Inspection.

@@ -5,6 +5,7 @@
 
 package io.vacuum.settings
 
+import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
@@ -16,6 +17,7 @@ import javax.swing.JPanel
 class VacuumSettingsComponent {
 
     val mainPanel: JPanel
+    val enableGoLint = JBCheckBox()
     val sourceFileLines = JBTextField()
     val switchCaseLines = JBTextField()
     val functionLines = JBTextField()
@@ -28,6 +30,10 @@ class VacuumSettingsComponent {
 
     init {
         mainPanel = FormBuilder.createFormBuilder()
+            .addLabeledComponent(
+                JBLabel("Enable golint"), enableGoLint,
+                1, false
+            )
             .addLabeledComponent(
                 JBLabel("Source file lines threshold"), sourceFileLines,
                 1, false
@@ -58,16 +64,4 @@ class VacuumSettingsComponent {
             .addComponentFillVertically(JPanel(), 0)
             .panel
     }
-
-    fun intFields() = listOf(
-        sourceFileLines,
-        switchCaseLines,
-        functionLines,
-        methodLines,
-        functionParameters,
-        casesNumber,
-        cognitiveComplexity,
-        booleanExpressions,
-        controlFlowDepth,
-    )
 }

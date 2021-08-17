@@ -12,6 +12,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.newvfs.events.VFileEvent
 import com.intellij.psi.PsiManager
 import io.vacuum.inspections.VacuumGoLintCommonLocalInspection
+import io.vacuum.settings.VacuumSettingsState
 import io.vacuum.utils.VacuumUtils
 
 /**
@@ -22,6 +23,8 @@ import io.vacuum.utils.VacuumUtils
 class GoSavedFileListener : VacuumBaseFileListener() {
 
     override fun after(events: MutableList<out VFileEvent>) {
+        if (!VacuumSettingsState.getInstance().enableGoLint) return
+
         val filtered = filterEvents(events)
         if (filtered.isEmpty()) return
 

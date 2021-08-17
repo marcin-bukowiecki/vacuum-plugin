@@ -10,6 +10,8 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import io.vacuum.notifications.VacuumNotifier
+import io.vacuum.settings.VacuumSettingsState
+import io.vacuum.utils.VacuumBundle
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
@@ -62,12 +64,15 @@ class GoLintProcess(private val files: List<PsiFile>, private val project: Proje
         }
 
         fun checkGoLint(project: Project, showNotification: Boolean = false): Boolean {
+            if (!VacuumSettingsState.getInstance().enableGoLint) {
+                return false
+            }
             if (executeLint(project, "-foo") == null) {
                 if (showNotification) {
                     VacuumNotifier.notifyError(
                         project,
-                        "golint is not installed",
-                        "Please check if golint is in GOPATH/bin directory or run <code>go get -u golang.org/x/lint/golint</code> to install it"
+                        VacuumBundle.message("vacuum.golint.notification.title"),
+                        VacuumBundle.message("vacuum.golint.notification.message")
                     )
                 }
                 return false

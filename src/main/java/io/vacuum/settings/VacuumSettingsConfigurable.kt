@@ -23,15 +23,16 @@ class VacuumSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val settings = VacuumSettingsState.getInstance()
-        var modified: Boolean = settingsComponent?.functionLines?.text != settings?.functionLines ?: ""
-        modified = modified || settingsComponent?.methodLines?.text != settings?.methodLines ?: ""
-        modified = modified || settingsComponent?.sourceFileLines?.text != settings?.sourceFileLines ?: ""
-        modified = modified || settingsComponent?.switchCaseLines?.text != settings?.switchCaseLines ?: ""
-        modified = modified || settingsComponent?.functionParameters?.text != settings?.functionParameters ?: ""
-        modified = modified || settingsComponent?.casesNumber?.text != settings?.casesNumber ?: ""
-        modified = modified || settingsComponent?.cognitiveComplexity?.text != settings?.cognitiveComplexity ?: ""
-        modified = modified || settingsComponent?.controlFlowDepth?.text != settings?.controlFlowDepth ?: ""
-        modified = modified || settingsComponent?.booleanExpressions?.text != settings?.booleanExpressions ?: ""
+        var modified: Boolean = settingsComponent?.functionLines?.text != (settings.functionLines ?: "")
+        modified = modified || settingsComponent?.methodLines?.text != (settings.methodLines ?: "")
+        modified = modified || settingsComponent?.sourceFileLines?.text != (settings.sourceFileLines ?: "")
+        modified = modified || settingsComponent?.switchCaseLines?.text != (settings.switchCaseLines ?: "")
+        modified = modified || settingsComponent?.functionParameters?.text != (settings.functionParameters ?: "")
+        modified = modified || settingsComponent?.casesNumber?.text != (settings.casesNumber ?: "")
+        modified = modified || settingsComponent?.cognitiveComplexity?.text != (settings.cognitiveComplexity ?: "")
+        modified = modified || settingsComponent?.controlFlowDepth?.text != (settings.controlFlowDepth ?: "")
+        modified = modified || settingsComponent?.booleanExpressions?.text != (settings.booleanExpressions ?: "")
+        modified = modified || settingsComponent?.enableGoLint?.isEnabled != settings.enableGoLint
         return modified
     }
 
@@ -39,15 +40,16 @@ class VacuumSettingsConfigurable : Configurable {
         val rerun = isModified
 
         val settings = VacuumSettingsState.getInstance()
-        settings?.functionLines = settingsComponent?.functionLines?.text?.toInt() ?: return
-        settings?.methodLines = settingsComponent?.methodLines?.text?.toInt() ?: return
-        settings?.sourceFileLines = settingsComponent?.sourceFileLines?.text?.toInt() ?: return
-        settings?.switchCaseLines = settingsComponent?.switchCaseLines?.text?.toInt() ?: return
-        settings?.functionParameters = settingsComponent?.functionParameters?.text?.toInt() ?: return
-        settings?.casesNumber = settingsComponent?.casesNumber?.text?.toInt() ?: return
-        settings?.cognitiveComplexity = settingsComponent?.cognitiveComplexity?.text?.toInt() ?: return
-        settings?.controlFlowDepth = settingsComponent?.controlFlowDepth?.text?.toInt() ?: return
-        settings?.booleanExpressions = settingsComponent?.booleanExpressions?.text?.toInt() ?: return
+        settings.functionLines = settingsComponent?.functionLines?.text?.toInt() ?: return
+        settings.methodLines = settingsComponent?.methodLines?.text?.toInt() ?: return
+        settings.sourceFileLines = settingsComponent?.sourceFileLines?.text?.toInt() ?: return
+        settings.switchCaseLines = settingsComponent?.switchCaseLines?.text?.toInt() ?: return
+        settings.functionParameters = settingsComponent?.functionParameters?.text?.toInt() ?: return
+        settings.casesNumber = settingsComponent?.casesNumber?.text?.toInt() ?: return
+        settings.cognitiveComplexity = settingsComponent?.cognitiveComplexity?.text?.toInt() ?: return
+        settings.controlFlowDepth = settingsComponent?.controlFlowDepth?.text?.toInt() ?: return
+        settings.booleanExpressions = settingsComponent?.booleanExpressions?.text?.toInt() ?: return
+        settings.enableGoLint = settingsComponent?.enableGoLint?.isEnabled ?: return
 
         if (rerun) VacuumUtils.rerunIntentions()
     }
@@ -58,14 +60,15 @@ class VacuumSettingsConfigurable : Configurable {
 
     override fun reset() {
         val instance = VacuumSettingsState.getInstance()
-        settingsComponent?.functionLines?.text = instance?.functionLines.toString()
-        settingsComponent?.methodLines?.text = instance?.methodLines.toString()
-        settingsComponent?.sourceFileLines?.text = instance?.sourceFileLines.toString()
-        settingsComponent?.switchCaseLines?.text = instance?.switchCaseLines.toString()
-        settingsComponent?.functionParameters?.text = instance?.functionParameters.toString()
-        settingsComponent?.casesNumber?.text = instance?.casesNumber.toString()
-        settingsComponent?.cognitiveComplexity?.text = instance?.cognitiveComplexity.toString()
-        settingsComponent?.controlFlowDepth?.text = instance?.controlFlowDepth.toString()
-        settingsComponent?.booleanExpressions?.text = instance?.booleanExpressions.toString()
+        settingsComponent?.functionLines?.text = instance.functionLines.toString()
+        settingsComponent?.methodLines?.text = instance.methodLines.toString()
+        settingsComponent?.sourceFileLines?.text = instance.sourceFileLines.toString()
+        settingsComponent?.switchCaseLines?.text = instance.switchCaseLines.toString()
+        settingsComponent?.functionParameters?.text = instance.functionParameters.toString()
+        settingsComponent?.casesNumber?.text = instance.casesNumber.toString()
+        settingsComponent?.cognitiveComplexity?.text = instance.cognitiveComplexity.toString()
+        settingsComponent?.controlFlowDepth?.text = instance.controlFlowDepth.toString()
+        settingsComponent?.booleanExpressions?.text = instance.booleanExpressions.toString()
+        settingsComponent?.enableGoLint?.isEnabled = instance.enableGoLint
     }
 }
