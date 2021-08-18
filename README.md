@@ -48,8 +48,7 @@ You can install this plugin from JetBrains plugin repository.
 
 To use Inspections with `golang/lint` run following command: `go get -u golang.org/x/lint/golint`.
 
-Since `golang/lint` is deprecated by default it is disabled. To enable it go to: 
-`File` -> `Settings` -> `Tools` -> `Vacuum Settings` and check `Enable golint`.
+Since `golang/lint` is deprecated it can be disabled from plugin settings (`File` -> `Settings` -> `Tools` -> `Vacuum Settings` and uncheck `Enable golint`).
 
 To disable particular Inspections go to: `File` -> `Settings` -> `Editor` -> `Inspections`, and under `Vacuum` 
 group uncheck undesired Inspection.
