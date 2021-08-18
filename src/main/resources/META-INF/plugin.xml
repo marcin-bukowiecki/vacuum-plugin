@@ -9,6 +9,7 @@
     Main features:
     <ul>
         <li>Over 30 code inspections and quick fixes</li>
+        <li>Postfix templates for slices</li>
         <li>Code metrics: cognitive complexity, number of lines, control flow depth etc.</li>
         <li>Naming convention</li>
         <li>boolean expression complexity</li>
@@ -37,6 +38,14 @@
                                  displayName="Vacuum Settings"/>
 
         <applicationService serviceImplementation="io.vacuum.settings.VacuumSettingsState"/>
+
+        <codeInsight.template.postfixTemplateProvider language="go" implementationClass="io.vacuum.postfix.VacuumPostfixTemplateProvider"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.concurrency.VacuumWaitGroupInspection"
+                         displayName="Calling sync.WaitGroup.Add inside goroutine"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
 
         <localInspection implementationClass="io.vacuum.inspections.concurrency.VacuumEmptyCriticalSectionInspection"
                          displayName="Useless critical section"
