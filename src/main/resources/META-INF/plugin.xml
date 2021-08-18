@@ -8,8 +8,8 @@
 
     Main features:
     <ul>
-        <li>Integration with golang/lint</li>
-        <li>Over 20 code inspections and quick fixes</li>
+        <li>Over 30 code inspections and quick fixes</li>
+        <li>Postfix templates for slices</li>
         <li>Code metrics: cognitive complexity, number of lines, control flow depth etc.</li>
         <li>Naming convention</li>
         <li>boolean expression complexity</li>
@@ -17,6 +17,7 @@
         <li>empty code blocks</li>
         <li>unit test contributor</li>
         <li>quick fixes for some code bugs and code smells</li>
+        <li>Integration with golang/lint</li>
     </ul>
     <br/>
 
@@ -37,6 +38,26 @@
                                  displayName="Vacuum Settings"/>
 
         <applicationService serviceImplementation="io.vacuum.settings.VacuumSettingsState"/>
+
+        <codeInsight.template.postfixTemplateProvider language="go" implementationClass="io.vacuum.postfix.VacuumPostfixTemplateProvider"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.concurrency.VacuumWaitGroupInspection"
+                         displayName="Calling sync.WaitGroup.Add inside goroutine"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.concurrency.VacuumEmptyCriticalSectionInspection"
+                         displayName="Useless critical section"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.receiver.VacuumGenericReceiverNameInspection"
+                         displayName="Receiver name inspection"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
 
         <localInspection implementationClass="io.vacuum.inspections.VacuumGoLintCommonLocalInspection"
                          displayName="Golint inspection"

@@ -15,6 +15,8 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import io.vacuum.lint.GoLintProcess
 import io.vacuum.lint.GoLintResult
+import io.vacuum.settings.VacuumSettingsComponent
+import io.vacuum.settings.VacuumSettingsState
 
 /**
  * Inspection for golint process
@@ -26,6 +28,11 @@ class VacuumGoLintCommonLocalInspection : VacuumBaseLocalInspection() {
     private var lintResult: GoLintResult? = null
 
     override fun isEnabledOnFile(file: GoFile): Boolean {
+        val settings = VacuumSettingsState.getInstance()
+        if (!settings.enableGoLint) {
+            return false
+        }
+
         val project = file.project
         lintResult = GoLintProcess(file).execute()
         val doc = PsiDocumentManager.getInstance(project).getDocument(file) ?: return false

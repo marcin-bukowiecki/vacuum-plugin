@@ -5,8 +5,8 @@
 
 package io.vacuum.settings
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -20,6 +20,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 )
 class VacuumSettingsState : PersistentStateComponent<VacuumSettingsState> {
 
+    var enableGoLint = true
     var sourceFileLines = 500
     var switchCaseLines = 6
     var functionLines = 25
@@ -40,12 +41,8 @@ class VacuumSettingsState : PersistentStateComponent<VacuumSettingsState> {
 
     companion object {
         @JvmStatic
-        fun getInstance(): VacuumSettingsState? {
-            return ServiceManager.getService(VacuumSettingsState::class.java)
-        }
-
-        fun default(): VacuumSettingsState {
-            return VacuumSettingsState()
+        fun getInstance(): VacuumSettingsState {
+            return ApplicationManager.getApplication().getService(VacuumSettingsState::class.java)
         }
     }
 }

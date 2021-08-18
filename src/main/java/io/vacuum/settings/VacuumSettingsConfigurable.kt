@@ -23,15 +23,16 @@ class VacuumSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val settings = VacuumSettingsState.getInstance()
-        var modified: Boolean = settingsComponent?.functionLines?.text != settings?.functionLines ?: ""
-        modified = modified || settingsComponent?.methodLines?.text != settings?.methodLines ?: ""
-        modified = modified || settingsComponent?.sourceFileLines?.text != settings?.sourceFileLines ?: ""
-        modified = modified || settingsComponent?.switchCaseLines?.text != settings?.switchCaseLines ?: ""
-        modified = modified || settingsComponent?.functionParameters?.text != settings?.functionParameters ?: ""
-        modified = modified || settingsComponent?.casesNumber?.text != settings?.casesNumber ?: ""
-        modified = modified || settingsComponent?.cognitiveComplexity?.text != settings?.cognitiveComplexity ?: ""
-        modified = modified || settingsComponent?.controlFlowDepth?.text != settings?.controlFlowDepth ?: ""
-        modified = modified || settingsComponent?.booleanExpressions?.text != settings?.booleanExpressions ?: ""
+        var modified: Boolean = settingsComponent?.functionLines?.text != settings.functionLines.toString()
+        modified = modified || settingsComponent?.methodLines?.text != settings.methodLines.toString()
+        modified = modified || settingsComponent?.sourceFileLines?.text != settings.sourceFileLines.toString()
+        modified = modified || settingsComponent?.switchCaseLines?.text != settings.switchCaseLines.toString()
+        modified = modified || settingsComponent?.functionParameters?.text != settings.functionParameters.toString()
+        modified = modified || settingsComponent?.casesNumber?.text != settings.casesNumber.toString()
+        modified = modified || settingsComponent?.cognitiveComplexity?.text != settings.cognitiveComplexity.toString()
+        modified = modified || settingsComponent?.controlFlowDepth?.text != settings.controlFlowDepth.toString()
+        modified = modified || settingsComponent?.booleanExpressions?.text != settings.booleanExpressions.toString()
+        modified = modified || settingsComponent?.enableGoLint?.isSelected != settings.enableGoLint
         return modified
     }
 
@@ -39,15 +40,46 @@ class VacuumSettingsConfigurable : Configurable {
         val rerun = isModified
 
         val settings = VacuumSettingsState.getInstance()
-        settings?.functionLines = settingsComponent?.functionLines?.text?.toInt() ?: return
-        settings?.methodLines = settingsComponent?.methodLines?.text?.toInt() ?: return
-        settings?.sourceFileLines = settingsComponent?.sourceFileLines?.text?.toInt() ?: return
-        settings?.switchCaseLines = settingsComponent?.switchCaseLines?.text?.toInt() ?: return
-        settings?.functionParameters = settingsComponent?.functionParameters?.text?.toInt() ?: return
-        settings?.casesNumber = settingsComponent?.casesNumber?.text?.toInt() ?: return
-        settings?.cognitiveComplexity = settingsComponent?.cognitiveComplexity?.text?.toInt() ?: return
-        settings?.controlFlowDepth = settingsComponent?.controlFlowDepth?.text?.toInt() ?: return
-        settings?.booleanExpressions = settingsComponent?.booleanExpressions?.text?.toInt() ?: return
+
+        settingsComponent?.functionLines?.text?.toInt()?.let {
+            settings.functionLines = it
+        }
+
+        settingsComponent?.methodLines?.text?.toInt()?.let {
+            settings.methodLines = it
+        }
+
+        settingsComponent?.sourceFileLines?.text?.toInt()?.let {
+            settings.sourceFileLines = it
+        }
+
+        settingsComponent?.switchCaseLines?.text?.toInt()?.let {
+            settings.switchCaseLines = it
+        }
+
+        settingsComponent?.functionParameters?.text?.toInt()?.let {
+            settings.functionParameters = it
+        }
+
+        settingsComponent?.casesNumber?.text?.toInt()?.let {
+            settings.casesNumber = it
+        }
+
+        settingsComponent?.cognitiveComplexity?.text?.toInt()?.let {
+            settings.cognitiveComplexity = it
+        }
+
+        settingsComponent?.controlFlowDepth?.text?.toInt()?.let {
+            settings.controlFlowDepth = it
+        }
+
+        settingsComponent?.booleanExpressions?.text?.toInt()?.let {
+            settings.booleanExpressions = it
+        }
+
+        settingsComponent?.enableGoLint?.isSelected?.let {
+            settings.enableGoLint = it
+        }
 
         if (rerun) VacuumUtils.rerunIntentions()
     }
@@ -58,14 +90,15 @@ class VacuumSettingsConfigurable : Configurable {
 
     override fun reset() {
         val instance = VacuumSettingsState.getInstance()
-        settingsComponent?.functionLines?.text = instance?.functionLines.toString()
-        settingsComponent?.methodLines?.text = instance?.methodLines.toString()
-        settingsComponent?.sourceFileLines?.text = instance?.sourceFileLines.toString()
-        settingsComponent?.switchCaseLines?.text = instance?.switchCaseLines.toString()
-        settingsComponent?.functionParameters?.text = instance?.functionParameters.toString()
-        settingsComponent?.casesNumber?.text = instance?.casesNumber.toString()
-        settingsComponent?.cognitiveComplexity?.text = instance?.cognitiveComplexity.toString()
-        settingsComponent?.controlFlowDepth?.text = instance?.controlFlowDepth.toString()
-        settingsComponent?.booleanExpressions?.text = instance?.booleanExpressions.toString()
+        settingsComponent?.functionLines?.text = instance.functionLines.toString()
+        settingsComponent?.methodLines?.text = instance.methodLines.toString()
+        settingsComponent?.sourceFileLines?.text = instance.sourceFileLines.toString()
+        settingsComponent?.switchCaseLines?.text = instance.switchCaseLines.toString()
+        settingsComponent?.functionParameters?.text = instance.functionParameters.toString()
+        settingsComponent?.casesNumber?.text = instance.casesNumber.toString()
+        settingsComponent?.cognitiveComplexity?.text = instance.cognitiveComplexity.toString()
+        settingsComponent?.controlFlowDepth?.text = instance.controlFlowDepth.toString()
+        settingsComponent?.booleanExpressions?.text = instance.booleanExpressions.toString()
+        settingsComponent?.enableGoLint?.isSelected = instance.enableGoLint
     }
 }

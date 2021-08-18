@@ -8,6 +8,7 @@ package io.vacuum.utils
 import com.goide.GoParserDefinition
 import com.goide.psi.*
 import com.goide.psi.impl.GoElementFactory
+import com.goide.psi.impl.GoTypeUtil
 import com.intellij.openapi.editor.CaretModel
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileEditorManager
@@ -21,6 +22,31 @@ import com.intellij.psi.util.nextLeafs
  * @author Marcin Bukowiecki
  */
 object VacuumPsiUtils {
+
+    fun isCall(stmt: GoSimpleStatement, expected: String): Boolean {
+        stmt.leftHandExprList?.let { list ->
+            (list.firstChild as? GoCallExpr)?.let { callExpr ->
+                return callExpr.expression.lastChild?.text == expected
+            }
+        }
+
+        return false
+    }
+
+    fun isTypeOf(stmt: GoSimpleStatement, expected: String): Boolean {
+        stmt.leftHandExprList?.let { list ->
+            (list.firstChild as? GoCallExpr)?.let { callExpr ->
+                (callExpr.expression.firstChild as? GoExpression)?.let { ref ->
+                    val refTypes = GoTypeUtil.getTypesOfExpressions(listOf(ref))
+                    if (refTypes.size == 1 && refTypes[0] != null && refTypes[0].text == expected) {
+                        return true
+                    }
+                }
+            }
+        }
+
+        return false
+    }
 
     fun getLastStatement(block: GoBlock): GoStatement? {
         return block.children.reversed().firstOrNull { ch -> ch is GoStatement } as? GoStatement
