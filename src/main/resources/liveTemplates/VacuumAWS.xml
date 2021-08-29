@@ -1,0 +1,52 @@
+<templateSet group="VacuumAWS">
+    <template name="itemPut"
+              value="$INPUT$ := dynamodb.PutItemInput{ TableName: $TABLE_NAME$, Item: $ITEM$ }"
+              description="DynamoDB PutItem operation"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="INPUT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="TABLE_NAME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="ITEM" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+
+    <template name="itemGet"
+              value="$INPUT$ := dynamodb.GetItemInput{ TableName: $TABLE_NAME$, Key: $KEY$ }"
+              description="DynamoDB GetItem operation"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="INPUT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="TABLE_NAME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="KEY" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+
+    <template name="itemDelete"
+              value="$INPUT$ := dynamodb.DeleteItemInput{ TableName: $TABLE_NAME$, Key: $KEY$ }"
+              description="DynamoDB DeleteItem operation"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="INPUT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="TABLE_NAME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="KEY" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+
+    <template name="tableDelete"
+              value="$INPUT$ := dynamodb.DeleteTableInput{ TableName: $TABLE_NAME$ }"
+              description="DynamoDB DeleteTable operation"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="INPUT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="TABLE_NAME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+</templateSet>

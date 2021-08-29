@@ -9,6 +9,9 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
+import io.vacuum.postfix.map.MapContainsKeyPostfixTemplate
+import io.vacuum.postfix.map.MapDoesNotContainKeyPostfixTemplate
+
 
 /**
  * @author Marcin Bukowiecki
@@ -17,7 +20,9 @@ class VacuumPostfixTemplateProvider : PostfixTemplateProvider {
 
     private val myTemplates = mutableSetOf<PostfixTemplate>(
         EmptySlicePostfixTemplate(this),
-        NotEmptySlicePostfixTemplate(this)
+        NotEmptySlicePostfixTemplate(this),
+        MapContainsKeyPostfixTemplate(this),
+        MapDoesNotContainKeyPostfixTemplate(this)
     )
 
     override fun getTemplates(): MutableSet<PostfixTemplate> = myTemplates

@@ -41,6 +41,9 @@
 
         <codeInsight.template.postfixTemplateProvider language="go" implementationClass="io.vacuum.postfix.VacuumPostfixTemplateProvider"/>
 
+        <defaultLiveTemplates file="/liveTemplates/VacuumAWS.xml"/>
+        <liveTemplateContext implementation="io.vacuum.livetemplates.VacuumAWSContext"/>
+
         <localInspection implementationClass="io.vacuum.inspections.concurrency.VacuumWaitGroupInspection"
                          displayName="Calling sync.WaitGroup.Add inside goroutine"
                          enabledByDefault="true"
@@ -199,6 +202,12 @@
 
         <localInspection implementationClass="io.vacuum.inspections.aws.VacuumAPIGatewayResponseInspection"
                          displayName="Providing StatusCode is a good practice and will help debug API"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
+        <localInspection implementationClass="io.vacuum.inspections.println.VacuumPrintlnInspection"
+                         displayName="Print ending with \n should be replaced with Println"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>

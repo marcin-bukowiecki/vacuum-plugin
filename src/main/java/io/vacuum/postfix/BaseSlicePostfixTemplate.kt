@@ -10,7 +10,6 @@ import com.goide.psi.GoExpression
 import com.goide.psi.impl.GoCallExprImpl
 import com.goide.psi.impl.GoElementFactory
 import com.goide.psi.impl.GoTypeUtil
-import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
@@ -24,7 +23,7 @@ abstract class BaseSlicePostfixTemplate(
     name: String,
     example: String,
     provider: PostfixTemplateProvider
-) : PostfixTemplate(id, name, example, provider) {
+) : VacuumBasePostfixTemplate(id, name, example, provider) {
 
     override fun isApplicable(context: PsiElement, copyDocument: Document, newOffset: Int): Boolean {
         val expr = if (context.parent is GoExpression) {
@@ -66,14 +65,4 @@ abstract class BaseSlicePostfixTemplate(
     }
 
     abstract fun getOperator(): String
-
-    private fun getTextForContext(context: PsiElement): String? {
-        return if (context.parent is GoExpression) {
-            (context.parent as? GoExpression)?.text
-        } else if (context.parent?.parent is GoCallExprImpl) {
-            (context.parent.parent as? GoCallExprImpl)?.text
-        } else {
-            null
-        }
-    }
 }
