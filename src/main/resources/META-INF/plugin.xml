@@ -10,6 +10,7 @@
     <ul>
         <li>Over 30 code inspections and quick fixes</li>
         <li>Postfix templates for slices</li>
+        <li>Postfix templates for maps</li>
         <li>Code metrics: cognitive complexity, number of lines, control flow depth etc.</li>
         <li>Naming convention</li>
         <li>boolean expression complexity</li>
