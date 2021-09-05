@@ -11,8 +11,8 @@ Vacuum is a GoLand plugin which provides code inspections, code metrics and quic
 
 #### Syntax inspections:
  - over 30 code inspections and quick fixes  
- - postfix templates for slices
- - postfix templates for maps
+ - inspection checking AWS Lambda function signature
+ - postfix templates for slices, maps, for loops and AWS Lambda function
  - AWS DynamoDB live templates
  - unhandled error  
  - empty comment inspection
