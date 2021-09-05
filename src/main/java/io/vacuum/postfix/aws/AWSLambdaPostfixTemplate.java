@@ -46,7 +46,7 @@ public class AWSLambdaPostfixTemplate extends VacuumBasePostfixTemplate {
     private final String myLoadedLambdaTemplate;
 
     public AWSLambdaPostfixTemplate(@NotNull PostfixTemplateProvider provider) {
-        super("Vacuum.AWS.lambda", "lambda", "", provider);
+        super("Vacuum.AWS.lambda", "lambda", "func (h *handler) handle(ctx context.Context) error { }", provider);
         this.myLoadedLambdaTemplate = loadTemplate();
     }
 
@@ -98,7 +98,7 @@ public class AWSLambdaPostfixTemplate extends VacuumBasePostfixTemplate {
         template.setToIndent(true);
         template.setToReformat(true);
         template.addVariable(new Variable("LAMBDA_PARAMETERS", "", "", true));
-        template.addVariable(new Variable("RETURN_TYPES", "", "", true));
+        template.addVariable(new Variable("RETURN_TYPES", "", "error", true));
 
         TemplateManager
                 .getInstance(context.getProject())
