@@ -14,9 +14,9 @@ object VacuumNamings {
 
     private const val testFileNameSuffix = "_test"
 
-    const val testFileSuffix = "_test.go"
+    private const val testFunctionNamePrefix = "Test_"
 
-    const val testFunctionNamePrefix = "Test_"
+    const val testFileSuffix = "_test.go"
 
     /**
      * Function returns possible supported unit test names

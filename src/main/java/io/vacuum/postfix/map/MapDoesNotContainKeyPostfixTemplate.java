@@ -5,15 +5,17 @@
 
 package io.vacuum.postfix.map;
 
-import com.goide.psi.GoType;
 import com.goide.psi.impl.GoMapTypeImpl;
 import com.intellij.codeInsight.template.impl.TemplateImpl;
+import com.intellij.codeInsight.template.impl.Variable;
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiElement;
 import io.vacuum.postfix.VacuumBasePostfixTemplate;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * @author Marcin Bukowiecki
@@ -26,19 +28,22 @@ public class MapDoesNotContainKeyPostfixTemplate extends VacuumBasePostfixTempla
 
     @Override
     public boolean isApplicable(@NotNull PsiElement context, @NotNull Document copyDocument, int newOffset) {
-        final GoType type = getType(context);
+        var type = getType(context);
         return type instanceof GoMapTypeImpl;
     }
 
     @Override
     public void expand(@NotNull PsiElement context, @NotNull Editor editor) {
-        final PsiElement elementToReplace = getElementToReplace(context);
+        var elementToReplace = getElementToReplace(context);
         if (elementToReplace == null) return;
 
-        final String text = elementToReplace.getText();
-
+        var text = elementToReplace.getText();
         var templateText = "if $VAL$, ok := " + text + "[$KEY$]; !ok { $END$ }\n";
+
         var template = new TemplateImpl("Vacuum.AWS.MapNotContains", templateText, "Vacuum.Map");
-        setupTemplate(context, elementToReplace, template, editor);
+        setupTemplate(context, elementToReplace, template, editor, List.of(
+                new Variable("VAL", "_", "_", true),
+                new Variable("KEY", "", "", true)
+        ), true);
     }
 }

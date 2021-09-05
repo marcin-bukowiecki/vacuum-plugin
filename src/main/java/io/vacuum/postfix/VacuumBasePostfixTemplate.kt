@@ -6,6 +6,7 @@
 package io.vacuum.postfix
 
 import com.goide.psi.GoExpression
+import com.goide.psi.GoFile
 import com.goide.psi.GoType
 import com.goide.psi.impl.GoCallExprImpl
 import com.goide.psi.impl.GoTypeUtil
@@ -28,11 +29,20 @@ abstract class VacuumBasePostfixTemplate(
     provider: PostfixTemplateProvider
 ) : PostfixTemplate(id, name, example, provider) {
 
-    fun setupTemplate(context: PsiElement, elementToReplace: PsiElement, template: Template, editor: Editor) {
+    fun getGoFile(context: PsiElement): GoFile? {
+        return context.containingFile as? GoFile
+    }
+
+    fun setupTemplate(context: PsiElement,
+                      elementToReplace: PsiElement,
+                      template: Template,
+                      editor: Editor,
+                      variables: List<Variable> = emptyList(),
+                      toReformat: Boolean = true) {
+
         template.setToIndent(true)
-        template.isToReformat = true
-        template.addVariable(Variable("VAL", "_", "_", true))
-        template.addVariable(Variable("KEY", "", "", true))
+        template.isToReformat = toReformat
+        variables.forEach { template.addVariable(it) }
 
         elementToReplace.delete()
         PsiDocumentManager

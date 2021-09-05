@@ -6,14 +6,18 @@
 package io.vacuum.codesmells
 
 import com.goide.inspections.core.GoProblemsHolder
-import com.goide.psi.*
+import com.goide.psi.GoBlock
+import com.goide.psi.GoElseStatement
+import com.goide.psi.GoFunctionDeclaration
+import com.goide.psi.GoIfStatement
+import com.goide.psi.GoVisitor
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.psi.SmartPointerManager
 import io.vacuum.inspections.VacuumBaseLocalInspection
 import io.vacuum.inspections.problems.VacuumInspectionMessage
 import io.vacuum.quickfix.EmptyCodeBlockQuickFix
 import io.vacuum.utils.VacuumBundle
-import io.vacuum.utils.VacuumMarkKey
+import io.vacuum.utils.VacuumDataKeys
 import io.vacuum.utils.VacuumPsiUtils
 import io.vacuum.utils.VacuumPsiUtils.toSmartPointer
 
@@ -73,6 +77,6 @@ class VacuumEmptyCodeBlockInspection : VacuumBaseLocalInspection() {
     }
 
     private fun markWithProblem(block: GoBlock) {
-        block.putUserData(VacuumMarkKey.instance, true)
+        block.putUserData(VacuumDataKeys.vacuumMarkKey, true)
     }
 }
