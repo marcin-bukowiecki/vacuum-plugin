@@ -87,7 +87,7 @@ class LambdaSignatureChecker(private val holder: GoProblemsHolder,
                 if (!GoTypeUtil.isError(last, o)) {
                     holder.registerProblem(
                         o,
-                        VacuumBundle.vacuumInspectionMessage("vacuum.aws.lambda.result.number")
+                        VacuumBundle.vacuumInspectionMessage("vacuum.aws.lambda.result.error")
                     )
                     return
                 }
