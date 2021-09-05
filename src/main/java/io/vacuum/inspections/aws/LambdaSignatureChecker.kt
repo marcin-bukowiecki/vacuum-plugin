@@ -10,7 +10,9 @@ import com.goide.psi.GoExpression
 import com.goide.psi.GoFunctionDeclaration
 import com.goide.psi.GoMethodDeclaration
 import com.goide.psi.GoSignature
+import com.goide.psi.GoTypeList
 import com.goide.psi.GoVisitor
+import com.goide.psi.impl.GoTypeUtil
 import com.intellij.psi.PsiElement
 import io.vacuum.utils.VacuumBundle
 import io.vacuum.utils.VacuumPsiUtils
@@ -67,6 +69,27 @@ class LambdaSignatureChecker(private val holder: GoProblemsHolder,
                         o,
                         VacuumBundle.vacuumInspectionMessage("vacuum.aws.lambda.signature.context")
                     )
+                }
+            }
+        }
+
+        val resultType = signature.resultType
+        if (resultType is GoTypeList) {
+            if (resultType.typeList.size !in 0..2) {
+                holder.registerProblem(
+                    o,
+                    VacuumBundle.vacuumInspectionMessage("vacuum.aws.lambda.result.number")
+                )
+                return
+            }
+
+            resultType.typeList.lastOrNull()?.let { last ->
+                if (!GoTypeUtil.isError(last, o)) {
+                    holder.registerProblem(
+                        o,
+                        VacuumBundle.vacuumInspectionMessage("vacuum.aws.lambda.result.number")
+                    )
+                    return
                 }
             }
         }
