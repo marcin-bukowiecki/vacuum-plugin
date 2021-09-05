@@ -10,9 +10,8 @@ import com.intellij.openapi.util.Key
 /**
  * @author Marcin Bukowiecki
  */
-class VacuumMarkKey : Key<Boolean>("VacuumMarkKey") {
+object VacuumDataKeys {
 
-    companion object {
-        val instance = VacuumMarkKey()
-    }
+    val vacuumMarkKey = Key<Boolean>("VacuumMarkKey")
+    val vacuumAWSLambdaKey = Key<Boolean>("VacuumAWSLambdaMarker")
 }

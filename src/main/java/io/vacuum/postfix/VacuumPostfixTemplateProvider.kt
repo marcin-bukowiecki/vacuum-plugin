@@ -9,9 +9,10 @@ import com.intellij.codeInsight.template.postfix.templates.PostfixTemplate
 import com.intellij.codeInsight.template.postfix.templates.PostfixTemplateProvider
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
+import io.vacuum.postfix.loops.ForLoopFalsePostfixTemplate
+import io.vacuum.postfix.loops.ForLoopTruePostfixTemplate
 import io.vacuum.postfix.map.MapContainsKeyPostfixTemplate
 import io.vacuum.postfix.map.MapDoesNotContainKeyPostfixTemplate
-
 
 /**
  * @author Marcin Bukowiecki
@@ -22,7 +23,10 @@ class VacuumPostfixTemplateProvider : PostfixTemplateProvider {
         EmptySlicePostfixTemplate(this),
         NotEmptySlicePostfixTemplate(this),
         MapContainsKeyPostfixTemplate(this),
-        MapDoesNotContainKeyPostfixTemplate(this)
+        MapDoesNotContainKeyPostfixTemplate(this),
+
+        ForLoopTruePostfixTemplate(this),
+        ForLoopFalsePostfixTemplate(this)
     )
 
     override fun getTemplates(): MutableSet<PostfixTemplate> = myTemplates
