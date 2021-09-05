@@ -6,7 +6,27 @@
 package io.vacuum.utils
 
 import com.goide.GoParserDefinition
-import com.goide.psi.*
+import com.goide.psi.GoAssignmentStatement
+import com.goide.psi.GoBinaryExpr
+import com.goide.psi.GoBlock
+import com.goide.psi.GoCallExpr
+import com.goide.psi.GoConditionalExpr
+import com.goide.psi.GoElseStatement
+import com.goide.psi.GoExprSwitchStatement
+import com.goide.psi.GoExpression
+import com.goide.psi.GoFile
+import com.goide.psi.GoForStatement
+import com.goide.psi.GoFunctionDeclaration
+import com.goide.psi.GoFunctionOrMethodDeclaration
+import com.goide.psi.GoIfStatement
+import com.goide.psi.GoImportDeclaration
+import com.goide.psi.GoImportSpec
+import com.goide.psi.GoParenthesesExpr
+import com.goide.psi.GoSimpleStatement
+import com.goide.psi.GoStatement
+import com.goide.psi.GoSwitchStatement
+import com.goide.psi.GoTypeDeclaration
+import com.goide.psi.GoUnaryExpr
 import com.goide.psi.impl.GoElementFactory
 import com.goide.psi.impl.GoTypeUtil
 import com.intellij.openapi.editor.CaretModel
@@ -14,7 +34,12 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.project.Project
-import com.intellij.psi.*
+import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiManager
+import com.intellij.psi.PsiWhiteSpace
+import com.intellij.psi.SmartPointerManager
+import com.intellij.psi.SmartPsiElementPointer
 import com.intellij.psi.util.elementType
 import com.intellij.psi.util.nextLeafs
 
@@ -22,6 +47,25 @@ import com.intellij.psi.util.nextLeafs
  * @author Marcin Bukowiecki
  */
 object VacuumPsiUtils {
+
+    fun findImport(context: PsiElement, path: String): GoImportSpec? {
+        val containingFile = context.containingFile as? GoFile ?: return null
+        return containingFile.imports.firstOrNull { it.path == path }
+    }
+
+    fun createStruct(name: String, context: PsiElement): GoTypeDeclaration {
+        val dummyFile = GoElementFactory.createFileFromText(
+            context.project, """
+             package foo
+                        
+             type $name struct {
+             
+             }
+             """.trimIndent()
+        )
+
+        return dummyFile.children.filterIsInstance<GoTypeDeclaration>().first()
+    }
 
     fun isCall(stmt: GoSimpleStatement, expected: String): Boolean {
         stmt.leftHandExprList?.let { list ->
