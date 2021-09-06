@@ -1,5 +1,5 @@
 <templateSet group="VacuumAWS">
-    <template name="itemPut"
+    <template name="putItem"
               value="$INPUT$ := dynamodb.PutItemInput{ TableName: $TABLE_NAME$, Item: $ITEM$ }"
               description="DynamoDB PutItem operation"
               toReformat="true"
@@ -12,7 +12,7 @@
         </context>
     </template>
 
-    <template name="itemGet"
+    <template name="getItem"
               value="$INPUT$ := dynamodb.GetItemInput{ TableName: $TABLE_NAME$, Key: $KEY$ }"
               description="DynamoDB GetItem operation"
               toReformat="true"
@@ -25,7 +25,7 @@
         </context>
     </template>
 
-    <template name="itemDelete"
+    <template name="deleteItem"
               value="$INPUT$ := dynamodb.DeleteItemInput{ TableName: $TABLE_NAME$, Key: $KEY$ }"
               description="DynamoDB DeleteItem operation"
               toReformat="true"
@@ -38,7 +38,7 @@
         </context>
     </template>
 
-    <template name="tableDelete"
+    <template name="deleteTable"
               value="$INPUT$ := dynamodb.DeleteTableInput{ TableName: $TABLE_NAME$ }"
               description="DynamoDB DeleteTable operation"
               toReformat="true"

@@ -231,6 +231,10 @@
             <className>io.vacuum.intentions.VacuumGoToUnitTestIntention</className>
             <category>Go</category>
         </intentionAction>
+        <intentionAction>
+            <className>io.vacuum.intentions.aws.VacuumToAWSStringIntention</className>
+            <category>Go</category>
+        </intentionAction>
     </extensions>
 
     <projectListeners>
