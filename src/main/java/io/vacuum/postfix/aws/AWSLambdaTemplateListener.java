@@ -5,12 +5,15 @@
 
 package io.vacuum.postfix.aws;
 
+import com.goide.psi.GoFile;
+import com.goide.psi.GoImportSpec;
 import com.intellij.codeInsight.template.Template;
 import com.intellij.codeInsight.template.TemplateEditingListener;
 import com.intellij.codeInsight.template.impl.TemplateState;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.SmartPsiElementPointer;
+import io.vacuum.utils.VacuumPsiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,12 +22,15 @@ import org.jetbrains.annotations.Nullable;
  */
 public class AWSLambdaTemplateListener implements TemplateEditingListener {
 
+    private final GoFile goFile;
     private final SmartPsiElementPointer<PsiElement> addedHandlerTypePtr;
     private final SmartPsiElementPointer<PsiElement> addedMainFunctionPtr;
 
-    public AWSLambdaTemplateListener(@Nullable SmartPsiElementPointer<PsiElement> addedHandlerTypePtr,
+    public AWSLambdaTemplateListener(@NotNull GoFile goFile,
+                                     @Nullable SmartPsiElementPointer<PsiElement> addedHandlerTypePtr,
                                      @Nullable SmartPsiElementPointer<PsiElement> addedMainFunctionPtr) {
 
+        this.goFile = goFile;
         this.addedHandlerTypePtr = addedHandlerTypePtr;
         this.addedMainFunctionPtr = addedMainFunctionPtr;
     }
@@ -36,7 +42,12 @@ public class AWSLambdaTemplateListener implements TemplateEditingListener {
 
     @Override
     public void templateFinished(@NotNull Template template, boolean brokenOff) {
-
+        ApplicationManager.getApplication().runWriteAction(() -> {
+            final GoImportSpec context = VacuumPsiUtils.INSTANCE.findImport(goFile, "context");
+            if (context == null) {
+                goFile.addImport("context", null);
+            }
+        });
     }
 
     @Override

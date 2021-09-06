@@ -105,7 +105,7 @@ public class AWSLambdaPostfixTemplate extends VacuumBasePostfixTemplate {
                 .startTemplate(
                         editor,
                         template,
-                        new AWSLambdaTemplateListener(addedHandlerTypeOrNull, mainOrNull)
+                        new AWSLambdaTemplateListener(goFile, addedHandlerTypeOrNull, mainOrNull)
                 );
     }
 

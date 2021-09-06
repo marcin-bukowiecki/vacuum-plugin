@@ -24,7 +24,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = '2021.2'
+    version = '2021.2.2'
     pluginName = 'Vacuum'
     type = 'GO'
     plugins = [ 'org.jetbrains.plugins.go']
