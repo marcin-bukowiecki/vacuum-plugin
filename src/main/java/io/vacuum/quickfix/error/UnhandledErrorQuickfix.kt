@@ -3,7 +3,7 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
  */
 
-package io.vacuum.quickfix
+package io.vacuum.quickfix.error
 
 import com.goide.psi.GoShortVarDeclaration
 import com.goide.psi.GoVarDefinition
@@ -12,6 +12,7 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.SmartPsiElementPointer
 import com.intellij.refactoring.suggested.endOffset
+import io.vacuum.quickfix.VacuumBaseLocalQuickFix
 import io.vacuum.utils.VacuumBundle
 import io.vacuum.utils.VacuumPsiUtils
 

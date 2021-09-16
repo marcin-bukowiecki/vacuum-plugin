@@ -13,7 +13,7 @@ import com.goide.psi.impl.GoTypeUtil
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.psi.SmartPointerManager
 import io.vacuum.inspections.VacuumBaseLocalInspection
-import io.vacuum.quickfix.UnhandledErrorQuickfix
+import io.vacuum.quickfix.error.UnhandledErrorQuickfix
 import io.vacuum.utils.VacuumBundle
 
 /**
