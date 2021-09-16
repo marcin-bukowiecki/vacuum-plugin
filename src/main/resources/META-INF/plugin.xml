@@ -48,7 +48,7 @@
         <liveTemplateContext implementation="io.vacuum.livetemplates.VacuumAWSContext"/>
 
         <localInspection implementationClass="io.vacuum.inspections.errors.VacuumOverwroteErrorInspection"
-                         displayName="Unhandled error"
+                         displayName="Overwritten error variable"
                          enabledByDefault="true"
                          groupName="Vacuum"
                          language="go"/>
