@@ -1,0 +1,15 @@
+<html lang="go">
+<body>
+<p>
+    Error returned from function calls should be handled before error variable is overwritten.
+
+    Example:
+    <code>
+        _, err := foo()
+
+        _, err = foo()
+    </code>
+</p>
+<!-- tooltip end -->
+</body>
+</html>
