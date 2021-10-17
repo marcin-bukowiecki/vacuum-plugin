@@ -264,6 +264,22 @@
             <className>io.vacuum.intentions.aws.VacuumToAWSIntIntention</className>
             <category>Go</category>
         </intentionAction>
+        <intentionAction>
+            <className>io.vacuum.intentions.aws.VacuumToAWSInt8Intention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>io.vacuum.intentions.aws.VacuumToAWSInt16Intention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>io.vacuum.intentions.aws.VacuumToAWSInt32Intention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>io.vacuum.intentions.aws.VacuumToAWSInt64Intention</className>
+            <category>Go</category>
+        </intentionAction>
     </extensions>
 
     <projectListeners>

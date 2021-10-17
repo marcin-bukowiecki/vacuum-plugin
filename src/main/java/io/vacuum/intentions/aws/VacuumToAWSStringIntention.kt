@@ -21,6 +21,9 @@ import io.vacuum.utils.VacuumBundle
  */
 class VacuumToAWSStringIntention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.string.create")) {
 
+  override val functionExpr: String
+    get() = "aws.String(1)"
+
   override fun isAvailable(project: Project, editor: Editor, file: PsiFile): Boolean {
     if (file !is GoFile) return false
 
@@ -45,45 +48,4 @@ class VacuumToAWSStringIntention : BaseToAWSIntention(VacuumBundle.message("vacu
   override fun typeSupported(type: GoType, element: PsiElement): Boolean {
     return GoTypeUtil.isString(type, element)
   }
-
-  override fun invoke(project: Project, editor: Editor, file: PsiFile) {
-    val offset = editor.caretModel.offset
-    val element = file.findElementAt(offset - 1) ?: return
-    val parent = element.parent
-
-    getReplaceStrategy(parent, editor)?.replace()
-  }
-
-  override fun getReplaceStrategy(parent: PsiElement, editor: Editor): ReplaceStrategy? {
-    return when (parent) {
-      is GoStringLiteral -> {
-        StringReplaceStrategy(parent, editor)
-      }
-      is GoExpression -> {
-        StringReplaceStrategy(parent, editor)
-      }
-      else -> {
-        null
-      }
-    }
-  }
 }
-
-
-/**
- * @author Marcin Bukowiecki
- */
-class StringReplaceStrategy(
-  private val expression: GoExpression,
-  override val editor: Editor
-) : ReplaceStrategy {
-
-  override val functionExpr: String
-    get() = "aws.String(1)"
-
-  override fun replace() {
-    replace( expression)
-  }
-}
-
-

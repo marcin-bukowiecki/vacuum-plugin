@@ -5,9 +5,11 @@
 
 package io.vacuum.intentions.aws
 
+import com.goide.psi.GoExpression
 import com.goide.psi.GoFile
 import com.goide.psi.GoType
 import com.goide.psi.impl.GoElementFactory
+import com.goide.psi.impl.GoTypeUtil
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
@@ -24,6 +26,27 @@ const val awwImportString = "github.com/aws/aws-sdk-go/aws"
  */
 abstract class BaseToAWSIntention(name: String) : VacuumIntentionBaseAction(name) {
 
+  abstract val functionExpr: String
+
+  override fun isAvailable(project: Project, editor: Editor, file: PsiFile): Boolean {
+    if (file !is GoFile) return false
+
+    val offset = editor.caretModel.offset
+    val element = file.findElementAt(offset - 1) ?: return false
+    val parent = element.parent
+
+    if (parent is GoExpression) {
+      val typesOfExpressions = GoTypeUtil.getTypesOfExpressions(mutableListOf(parent))
+      typesOfExpressions[0]?.let { t ->
+        if (typeSupported(t, element)) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
   override fun invoke(project: Project, editor: Editor, file: PsiFile) {
     val offset = editor.caretModel.offset
     val element = file.findElementAt(offset - 1) ?: return
@@ -32,7 +55,7 @@ abstract class BaseToAWSIntention(name: String) : VacuumIntentionBaseAction(name
     getReplaceStrategy(parent, editor)?.replace()
   }
 
-  abstract fun getReplaceStrategy(parent: PsiElement, editor: Editor): ReplaceStrategy?
+  open fun getReplaceStrategy(parent: PsiElement, editor: Editor): ReplaceStrategy? = BaseReplaceStrategy(parent, editor, functionExpr)
 
   abstract fun typeSupported(type: GoType, element: PsiElement): Boolean
 }
@@ -64,5 +87,16 @@ interface ReplaceStrategy {
       }
       PsiDocumentManager.getInstance(project).commitDocument(editor.document)
     }
+  }
+}
+
+/**
+ * @author Marcin Bukowiecki
+ */
+class BaseReplaceStrategy(private val toReplace: PsiElement,
+                          override val editor: Editor,
+                          override val functionExpr: String): ReplaceStrategy {
+  override fun replace() {
+    replace(toReplace)
   }
 }

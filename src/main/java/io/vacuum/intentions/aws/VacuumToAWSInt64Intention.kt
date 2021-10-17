@@ -13,12 +13,12 @@ import io.vacuum.utils.VacuumBundle
 /**
  * @author Marcin Bukowiecki
  */
-class VacuumToAWSIntIntention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.int.create")) {
+class VacuumToAWSInt64Intention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.int64.create")) {
 
   override val functionExpr: String
-    get() = "aws.Int(1)"
+    get() = "aws.Int64(1)"
 
   override fun typeSupported(type: GoType, element: PsiElement): Boolean {
-    return GoTypeUtil.isIntType(type, element)
+    return GoTypeUtil.isInt64(type, element)
   }
 }

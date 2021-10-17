@@ -9,16 +9,17 @@ import com.goide.psi.GoType
 import com.goide.psi.impl.GoTypeUtil
 import com.intellij.psi.PsiElement
 import io.vacuum.utils.VacuumBundle
+import io.vacuum.utils.VacuumTypeUtils
 
 /**
  * @author Marcin Bukowiecki
  */
-class VacuumToAWSIntIntention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.int.create")) {
+class VacuumToAWSInt16Intention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.int16.create")) {
 
   override val functionExpr: String
-    get() = "aws.Int(1)"
+    get() = "aws.Int16(1)"
 
   override fun typeSupported(type: GoType, element: PsiElement): Boolean {
-    return GoTypeUtil.isIntType(type, element)
+    return VacuumTypeUtils.isInt16(type, element)
   }
 }
