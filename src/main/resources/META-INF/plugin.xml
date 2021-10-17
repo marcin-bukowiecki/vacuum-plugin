@@ -245,6 +245,12 @@
                          groupName="Vacuum"
                          language="go"/>
 
+        <localInspection implementationClass="io.vacuum.inspections.conditions.VacuumUselessElseBranch"
+                         displayName="Useless else branch for if branch ending with return statement"
+                         enabledByDefault="true"
+                         groupName="Vacuum"
+                         language="go"/>
+
         <postStartupActivity implementation="io.vacuum.listeners.VacuumStartupActivity"/>
 
         <intentionAction>

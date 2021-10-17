@@ -7,6 +7,7 @@ package io.vacuum.bugs
 
 import com.goide.inspections.core.GoProblemsHolder
 import com.goide.psi.GoBinaryExpr
+import com.goide.psi.GoElseStatement
 import com.goide.psi.GoIfStatement
 import com.goide.psi.GoVisitor
 import com.intellij.codeInspection.LocalInspectionToolSession
@@ -33,52 +34,49 @@ import io.vacuum.utils.VacuumUtils.isBool
  */
 class VacuumUselessIfStatements : VacuumBaseLocalInspection() {
 
-    private val exceptions = setOf("*", "+", "<<", "=")
+  private val exceptions = setOf("*", "+", "<<", "=")
 
-    override fun buildGoVisitor(
-        holder: GoProblemsHolder,
-        session: LocalInspectionToolSession
-    ): GoVisitor {
+  override fun buildGoVisitor(
+    holder: GoProblemsHolder,
+    session: LocalInspectionToolSession
+  ): GoVisitor {
 
-        return object : GoVisitor() {
+    return object : GoVisitor() {
 
-            override fun visitIfStatement(goIfStatement: GoIfStatement) {
-                if (goIfStatement.block != null && goIfStatement.elseStatement != null) {
-                    return
-                }
-                if (checkIfChildrenMarked(goIfStatement)) {
-                    return
-                }
+      override fun visitIfStatement(goIfStatement: GoIfStatement) {
+        if (goIfStatement.parent is GoElseStatement) return
+        if (goIfStatement.block != null && goIfStatement.elseStatement != null) return
+        if (checkIfChildrenMarked(goIfStatement)) return
 
-                goIfStatement.condition?.let { condition ->
-                    if (condition.isConstant && condition.text.isBool()) {
-                        goIfStatement.putUserData(UserDataKeys.USELESS_IF_KEY, true)
-                        holder.registerProblem(
-                            goIfStatement,
-                            VacuumBundle.vacuumInspectionMessage("vacuum.ifStatement.useless"),
-                            ProblemHighlightType.WARNING,
-                            UselessIfBlockQuickFix()
-                        )
-                    }
-                }
-            }
-
-            override fun visitBinaryExpr(o: GoBinaryExpr) {
-                if (o.operator == null) return
-                val left = o.left
-                val right = o.right ?: return
-                if (left.text == right.text && (o.operator as PsiElement).text !in exceptions) {
-                    holder.registerProblem(
-                        o,
-                        VacuumBundle.vacuumInspectionMessage("vacuum.binary.sameExpression"),
-                        ProblemHighlightType.WARNING
-                    )
-                }
-            }
+        goIfStatement.condition?.let { condition ->
+          if (condition.isConstant && condition.text.isBool()) {
+            goIfStatement.putUserData(UserDataKeys.USELESS_IF_KEY, true)
+            holder.registerProblem(
+              goIfStatement,
+              VacuumBundle.vacuumInspectionMessage("vacuum.ifStatement.useless"),
+              ProblemHighlightType.WARNING,
+              UselessIfBlockQuickFix()
+            )
+          }
         }
-    }
+      }
 
-    private fun checkIfChildrenMarked(ifStatement: GoIfStatement): Boolean {
-        return ifStatement.block?.children?.any { ch -> ch.getUserData(UserDataKeys.USELESS_IF_KEY) == true } ?: false
+      override fun visitBinaryExpr(o: GoBinaryExpr) {
+        if (o.operator == null) return
+        val left = o.left
+        val right = o.right ?: return
+        if (left.text == right.text && (o.operator as PsiElement).text !in exceptions) {
+          holder.registerProblem(
+            o,
+            VacuumBundle.vacuumInspectionMessage("vacuum.binary.sameExpression"),
+            ProblemHighlightType.WARNING
+          )
+        }
+      }
     }
+  }
+
+  private fun checkIfChildrenMarked(ifStatement: GoIfStatement): Boolean {
+    return ifStatement.block?.children?.any { ch -> ch.getUserData(UserDataKeys.USELESS_IF_KEY) == true } ?: false
+  }
 }
