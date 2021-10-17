@@ -1,0 +1,22 @@
+<html lang="go">
+<body>
+<p>
+    If `if` branch ends with return statement there should not be an else branch.
+    <code>
+        if foo {
+            return 0
+        } else {
+            fmt.Println(...)
+        }
+    </code>
+    Should be changed to:
+    <code>
+        if foo {
+            return 0
+        }
+        fmt.Println(...)
+    </code>
+</p>
+<!-- tooltip end -->
+</body>
+</html>

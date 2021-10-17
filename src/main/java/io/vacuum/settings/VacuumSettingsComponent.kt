@@ -27,6 +27,7 @@ class VacuumSettingsComponent {
     var cognitiveComplexity = JBTextField()
     var booleanExpressions = JBTextField()
     var controlFlowDepth = JBTextField()
+    var stringConcatenation = JBTextField()
 
     init {
         mainPanel = FormBuilder.createFormBuilder()
@@ -59,6 +60,10 @@ class VacuumSettingsComponent {
             )
             .addLabeledComponent(
                 JBLabel("Control flow depth"), controlFlowDepth,
+                1, false
+            )
+            .addLabeledComponent(
+                JBLabel("Number of strings for concatenation optimization"), stringConcatenation,
                 1, false
             )
             .addComponentFillVertically(JPanel(), 0)

@@ -17,28 +17,28 @@ import io.vacuum.utils.VacuumBundle
  */
 class VacuumGenericReceiverNameInspection : VacuumBaseLocalInspection() {
 
-    private val names = setOf(
-        "me",
-        "this",
-        "self"
-    )
+  private val names = setOf(
+    "me",
+    "this",
+    "self"
+  )
 
-    override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
-        return object : GoVisitor() {
+  override fun buildGoVisitor(holder: GoProblemsHolder, session: LocalInspectionToolSession): GoVisitor {
+    return object : GoVisitor() {
 
-            override fun visitMethodDeclaration(o: GoMethodDeclaration) {
-                o.receiver?.let { goReceiver ->
-                    goReceiver.name?.let { name ->
-                        val nameIdentifier = goReceiver.nameIdentifier ?: return
-                        if (names.contains(name)) {
-                            holder.registerProblem(
-                                nameIdentifier,
-                                VacuumBundle.vacuumInspectionMessage("vacuum.receiver.genericNames")
-                            )
-                        }
-                    }
-                }
+      override fun visitMethodDeclaration(o: GoMethodDeclaration) {
+        o.receiver?.let { goReceiver ->
+          goReceiver.name?.let { name ->
+            val nameIdentifier = goReceiver.nameIdentifier ?: return
+            if (names.contains(name)) {
+              holder.registerProblem(
+                nameIdentifier,
+                VacuumBundle.vacuumInspectionMessage("vacuum.receiver.genericNames")
+              )
             }
+          }
         }
+      }
     }
+  }
 }
