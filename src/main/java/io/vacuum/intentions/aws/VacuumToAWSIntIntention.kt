@@ -7,7 +7,7 @@ package io.vacuum.intentions.aws
 
 import com.goide.psi.GoExpression
 import com.goide.psi.GoFile
-import com.goide.psi.GoStringLiteral
+import com.goide.psi.GoLiteral
 import com.goide.psi.GoType
 import com.goide.psi.impl.GoTypeUtil
 import com.intellij.openapi.editor.Editor
@@ -19,7 +19,7 @@ import io.vacuum.utils.VacuumBundle
 /**
  * @author Marcin Bukowiecki
  */
-class VacuumToAWSStringIntention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.string.create")) {
+class VacuumToAWSIntIntention : BaseToAWSIntention(VacuumBundle.message("vacuum.aws.int.create")) {
 
   override fun isAvailable(project: Project, editor: Editor, file: PsiFile): Boolean {
     if (file !is GoFile) return false
@@ -27,8 +27,6 @@ class VacuumToAWSStringIntention : BaseToAWSIntention(VacuumBundle.message("vacu
     val offset = editor.caretModel.offset
     val element = file.findElementAt(offset - 1) ?: return false
     val parent = element.parent
-
-    if (parent is GoStringLiteral) return true
 
     if (parent is GoExpression) {
       val typesOfExpressions = GoTypeUtil.getTypesOfExpressions(mutableListOf(parent))
@@ -43,24 +41,16 @@ class VacuumToAWSStringIntention : BaseToAWSIntention(VacuumBundle.message("vacu
   }
 
   override fun typeSupported(type: GoType, element: PsiElement): Boolean {
-    return GoTypeUtil.isString(type, element)
-  }
-
-  override fun invoke(project: Project, editor: Editor, file: PsiFile) {
-    val offset = editor.caretModel.offset
-    val element = file.findElementAt(offset - 1) ?: return
-    val parent = element.parent
-
-    getReplaceStrategy(parent, editor)?.replace()
+    return GoTypeUtil.isIntType(type, element)
   }
 
   override fun getReplaceStrategy(parent: PsiElement, editor: Editor): ReplaceStrategy? {
     return when (parent) {
-      is GoStringLiteral -> {
-        StringReplaceStrategy(parent, editor)
-      }
       is GoExpression -> {
-        StringReplaceStrategy(parent, editor)
+        IntReplaceStrategy(parent, editor)
+      }
+      is GoLiteral -> {
+        IntReplaceStrategy(parent, editor)
       }
       else -> {
         null
@@ -69,21 +59,18 @@ class VacuumToAWSStringIntention : BaseToAWSIntention(VacuumBundle.message("vacu
   }
 }
 
-
 /**
  * @author Marcin Bukowiecki
  */
-class StringReplaceStrategy(
+class IntReplaceStrategy(
   private val expression: GoExpression,
   override val editor: Editor
 ) : ReplaceStrategy {
 
   override val functionExpr: String
-    get() = "aws.String(1)"
+    get() = "aws.Int(1)"
 
   override fun replace() {
     replace( expression)
   }
 }
-
-

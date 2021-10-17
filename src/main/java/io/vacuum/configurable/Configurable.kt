@@ -12,6 +12,10 @@ import io.vacuum.settings.VacuumSettingsState
  */
 interface Configurable {
 
+    fun getNumberOfStringForEfficientConcatenation(): Int {
+        return VacuumSettingsState.getInstance().numberOfStringsForEfficientConcatenation
+    }
+
     fun getMaxSourceLines(): Int {
         return VacuumSettingsState.getInstance().sourceFileLines
     }
