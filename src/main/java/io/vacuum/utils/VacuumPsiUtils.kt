@@ -19,7 +19,6 @@ import com.goide.psi.GoForStatement
 import com.goide.psi.GoFunctionDeclaration
 import com.goide.psi.GoFunctionOrMethodDeclaration
 import com.goide.psi.GoIfStatement
-import com.goide.psi.GoImportDeclaration
 import com.goide.psi.GoImportSpec
 import com.goide.psi.GoParenthesesExpr
 import com.goide.psi.GoSimpleStatement
@@ -48,9 +47,32 @@ import com.intellij.psi.util.nextLeafs
  */
 object VacuumPsiUtils {
 
+    fun allStrings(args: List<GoExpression>): Boolean {
+        return GoTypeUtil.getTypesOfExpressions(args).stream().allMatch { i -> GoTypeUtil.isString(i, null) }
+    }
+
+    fun updateBinaryExpr(binaryExpr: GoBinaryExpr, left: PsiElement, right: PsiElement): GoBinaryExpr {
+        val firstChild = binaryExpr.firstChild
+        firstChild.replace(left)
+        val lastChild = binaryExpr.lastChild
+        if (lastChild == firstChild) return binaryExpr
+        lastChild.replace(right)
+        return binaryExpr
+    }
+
+    fun isImported(context: PsiElement, path: String): Boolean {
+        return findImport(context, path) != null
+    }
+
     fun findImport(context: PsiElement, path: String): GoImportSpec? {
         val containingFile = context.containingFile as? GoFile ?: return null
-        return containingFile.imports.firstOrNull { it.path == path }
+        return containingFile.imports.firstOrNull {
+            if (it.alias == null) {
+                it.path == path
+            } else {
+                it.alias == path && it.path == path
+            }
+        }
     }
 
     fun createStruct(name: String, context: PsiElement): GoTypeDeclaration {
@@ -361,5 +383,11 @@ object VacuumPsiUtils {
     fun isIndented(expression: PsiElement?): Boolean {
         expression ?: return false
         return expression.prevSibling is PsiWhiteSpace
+    }
+
+    fun containsImport(goFile: GoFile, importPath: String): Boolean {
+        return goFile.imports.any { imp ->
+            imp.path == importPath
+        }
     }
 }

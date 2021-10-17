@@ -20,6 +20,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 )
 class VacuumSettingsState : PersistentStateComponent<VacuumSettingsState> {
 
+    var numberOfStringsForEfficientConcatenation = 5
     var enableGoLint = true
     var sourceFileLines = 500
     var switchCaseLines = 6

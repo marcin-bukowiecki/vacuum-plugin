@@ -1,4 +1,40 @@
 <templateSet group="VacuumAWS">
+    <template name="awsNewSession"
+              value="$SESSION_VAR$, $ERROR_VAR$ := session.NewSession()"
+              description="New session created from AWS SDK"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="SESSION_VAR" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="ERROR_VAR" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+
+    <template name="awsNewSQSClient"
+              value="$CLIENT_VAR_NAME$ := sqs.New($SESSION_VAR$)"
+              description="New instance of the SQS client"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="CLIENT_VAR_NAME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="SESSION_VAR" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+
+    <template name="awsNewDynamoDBClient"
+              value="$CLIENT_VAR_NAME$ := dynamodb.New($SESSION_VAR$)"
+              description="New instance of the DynamoDB client"
+              toReformat="true"
+              toShortenFQNames="false">
+        <variable name="CLIENT_VAR_NAME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="SESSION_VAR" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="GO" value="true"/>
+        </context>
+    </template>
+
     <template name="putItem"
               value="$INPUT$ := dynamodb.PutItemInput{ TableName: $TABLE_NAME$, Item: $ITEM$ }"
               description="DynamoDB PutItem operation"

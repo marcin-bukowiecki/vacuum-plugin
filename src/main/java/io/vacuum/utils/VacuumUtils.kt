@@ -14,10 +14,13 @@ import com.intellij.codeInspection.ex.InspectionManagerEx
 import com.intellij.codeInspection.ex.LocalInspectionToolWrapper
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
+import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
+import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
 import io.vacuum.codesmells.VacuumCognitiveComplexity
 import io.vacuum.codesmells.VacuumComplexBooleanExpressionsInspection
@@ -32,6 +35,26 @@ import io.vacuum.inspections.VacuumBaseLocalInspection
 object VacuumUtils {
 
     const val goExtension = "go"
+
+    fun detectDelim(split: Array<String>): String? {
+        if (split.isEmpty() || split.size == 1) return ""
+
+        if (split.slice(1 until split.size).distinct().size == 1) {
+
+            return split[1]
+        }
+
+        return null
+    }
+
+    fun moveCaretToEnd(project: Project, element: PsiElement) {
+        FileEditorManager.getInstance(project).selectedEditor?.let {
+            if (it is TextEditor) {
+                val editor = it.editor
+                editor.caretModel.moveToOffset(element.endOffset)
+            }
+        }
+    }
     
     fun asGoFile(project: Project, virtualFile: VirtualFile): GoFile? {
         return PsiManager.getInstance(project).findFile(virtualFile) as? GoFile
@@ -124,3 +147,5 @@ object VacuumUtils {
         )
     }
 }
+
+data class SprintfContext(private val start: String,)
