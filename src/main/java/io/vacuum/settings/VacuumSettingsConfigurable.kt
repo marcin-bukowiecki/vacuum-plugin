@@ -32,6 +32,7 @@ class VacuumSettingsConfigurable : Configurable {
         modified = modified || settingsComponent?.cognitiveComplexity?.text != settings.cognitiveComplexity.toString()
         modified = modified || settingsComponent?.controlFlowDepth?.text != settings.controlFlowDepth.toString()
         modified = modified || settingsComponent?.booleanExpressions?.text != settings.booleanExpressions.toString()
+        modified = modified || settingsComponent?.stringConcatenation?.text != settings.numberOfStringsForEfficientConcatenation.toString()
         modified = modified || settingsComponent?.enableGoLint?.isSelected != settings.enableGoLint
         return modified
     }
@@ -77,6 +78,10 @@ class VacuumSettingsConfigurable : Configurable {
             settings.booleanExpressions = it
         }
 
+        settingsComponent?.stringConcatenation?.text?.toInt()?.let {
+            settings.numberOfStringsForEfficientConcatenation = it
+        }
+
         settingsComponent?.enableGoLint?.isSelected?.let {
             settings.enableGoLint = it
         }
@@ -99,6 +104,7 @@ class VacuumSettingsConfigurable : Configurable {
         settingsComponent?.cognitiveComplexity?.text = instance.cognitiveComplexity.toString()
         settingsComponent?.controlFlowDepth?.text = instance.controlFlowDepth.toString()
         settingsComponent?.booleanExpressions?.text = instance.booleanExpressions.toString()
+        settingsComponent?.stringConcatenation?.text = instance.numberOfStringsForEfficientConcatenation.toString()
         settingsComponent?.enableGoLint?.isSelected = instance.enableGoLint
     }
 }
