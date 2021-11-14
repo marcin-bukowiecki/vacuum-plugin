@@ -31,6 +31,8 @@ import java.util.Objects;
  */
 public class AWSLambdaTemplateListener implements TemplateEditingListener {
 
+    private static final String LAMBDA_IMPORT = "github.com/aws/aws-lambda-go/lambda";
+
     private final GoFile goFile;
     private final Editor editor;
     private final SmartPsiElementPointer<PsiElement> addedHandlerTypePtr;
@@ -55,9 +57,14 @@ public class AWSLambdaTemplateListener implements TemplateEditingListener {
     @Override
     public void templateFinished(@NotNull Template template, boolean brokenOff) {
         ApplicationManager.getApplication().runWriteAction(() -> {
-            final GoImportSpec context = VacuumPsiUtils.INSTANCE.findImport(goFile, "context");
+            GoImportSpec context = VacuumPsiUtils.INSTANCE.findImport(goFile, "context");
             if (context == null) {
                 goFile.addImport("context", null);
+            }
+
+            context = VacuumPsiUtils.INSTANCE.findImport(goFile, "github.com/aws/aws-lambda-go/lambda");
+            if (context == null) {
+                goFile.addImport(LAMBDA_IMPORT, null);
             }
         });
     }
