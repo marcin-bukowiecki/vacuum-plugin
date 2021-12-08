@@ -7,7 +7,6 @@ package io.vacuum.utils
 
 import com.intellij.DynamicBundle
 import io.vacuum.inspections.problems.VacuumInspectionMessage
-import org.jetbrains.annotations.Nls
 import org.jetbrains.annotations.PropertyKey
 
 const val BUNDLE = "messages.vacuum"
@@ -17,15 +16,15 @@ const val BUNDLE = "messages.vacuum"
  */
 object VacuumBundle : DynamicBundle(BUNDLE) {
 
-    fun message(key: @PropertyKey(resourceBundle = BUNDLE) String): @Nls String {
+    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String): String {
         return getMessage(key)
     }
 
-    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, arg1: Any): @Nls String {
+    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, arg1: Any): String {
         return getMessage(key, arg1)
     }
 
-    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, arg1: Any, arg2: Any): @Nls String {
+    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, arg1: Any, arg2: Any): String {
         return getMessage(key, arg1, arg2)
     }
 
