@@ -1,8 +1,8 @@
 package io.vacuum
 
 import io.vacuum.lint.GoLintOutputParser
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 /**
  * @author Marcin Bukowiecki
@@ -15,7 +15,7 @@ class GoLintOutputParserTest {
                 "\n"
         val parser = GoLintOutputParser()
         val actual = parser.parseLine(output)
-        Assert.assertEquals("main.go:9:6:exported type Person should have comment or be unexported",
+        Assertions.assertEquals("main.go:9:6:exported type Person should have comment or be unexported",
             actual.toString())
     }
 
@@ -24,6 +24,6 @@ class GoLintOutputParserTest {
         val output = "\n"
         val parser = GoLintOutputParser()
         val actual = parser.parseLine(output)
-        Assert.assertEquals(null, actual)
+        Assertions.assertEquals(null, actual)
     }
 }
